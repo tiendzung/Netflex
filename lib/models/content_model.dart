@@ -10,11 +10,11 @@ class Content {
   final Color color;
 
   const Content({
-    @required this.name,
-    @required this.imageUrl,
-    this.titleImageUrl,
-    this.videoUrl,
-    this.description,
-    this.color,
+    required this.name,
+    required this.imageUrl,
+    required this.titleImageUrl,
+    required this.videoUrl,
+    required this.description,
+    required this.color,
   });
 }
