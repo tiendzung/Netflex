@@ -95,18 +95,18 @@ List<Content> previews = const [
   ),
 ];
 
-// final List<Content> myList = const [
-//   Content(name: 'Violet Evergarden', imageUrl: Assets.violetEvergarden),
-//   Content(name: 'How to Sell Drugs Online (Fast)', imageUrl: Assets.htsdof),
-//   Content(name: 'Kakegurui', imageUrl: Assets.kakegurui),
-//   Content(name: 'Carole and Tuesday', imageUrl: Assets.caroleAndTuesday),
-//   Content(name: 'Black Mirror', imageUrl: Assets.blackMirror),
-//   Content(name: 'Violet Evergarden', imageUrl: Assets.violetEvergarden),
-//   Content(name: 'How to Sell Drugs Online (Fast)', imageUrl: Assets.htsdof),
-//   Content(name: 'Kakegurui', imageUrl: Assets.kakegurui),
-//   Content(name: 'Carole and Tuesday', imageUrl: Assets.caroleAndTuesday),
-//   Content(name: 'Black Mirror', imageUrl: Assets.blackMirror),
-// ];
+const List<Content> myList =  [
+  Content(name: 'Violet Evergarden', imageUrl: Assets.violetEvergarden, color: Colors.black, description: '', videoUrl: '', titleImageUrl: '' ),
+  Content(name: 'How to Sell Drugs Online (Fast)', imageUrl: Assets.htsdof, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+  Content(name: 'Kakegurui', imageUrl: Assets.kakegurui, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+  Content(name: 'Carole and Tuesday', imageUrl: Assets.caroleAndTuesday, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+  Content(name: 'Black Mirror', imageUrl: Assets.blackMirror, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+  Content(name: 'Violet Evergarden', imageUrl: Assets.violetEvergarden, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+  Content(name: 'How to Sell Drugs Online (Fast)', imageUrl: Assets.htsdof, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+  Content(name: 'Kakegurui', imageUrl: Assets.kakegurui, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+  Content(name: 'Carole and Tuesday', imageUrl: Assets.caroleAndTuesday, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+  Content(name: 'Black Mirror', imageUrl: Assets.blackMirror, color: Colors.black, description: '', videoUrl: '', titleImageUrl: ''),
+];
 //
 // final List<Content> originals = const [
 //   Content(name: 'Stranger Things', imageUrl: Assets.strangerThings),

@@ -6,7 +6,7 @@ class ContentHeader extends StatelessWidget {
   final Content featuredContent;
 
   const ContentHeader({
-    Key ? key,
+    Key? key,
     required this.featuredContent,
   }) : super(key: key);
 
@@ -17,13 +17,12 @@ class ContentHeader extends StatelessWidget {
       children: [
         Container(
           height: 500.0,
-          decoration: BoxDecoration(image: DecorationImage(
-            image: AssetImage(featuredContent.imageUrl),
-            fit: BoxFit.cover,
-
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(featuredContent.imageUrl),
+              fit: BoxFit.cover,
+            ),
           ),
-          ),
-
         ),
         Container(
           height: 500.0,
@@ -66,7 +65,6 @@ class ContentHeader extends StatelessWidget {
       ],
     );
   }
-
 }
 
 class _PlayButton extends StatelessWidget {
@@ -74,7 +72,16 @@ class _PlayButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton.icon(
         onPressed: () => print('Play'),
-        icon: const Icon(Icons.play_arrow,size: 30.0,),
-        label: const Text('Play'));
+        icon: const Icon(
+          Icons.play_arrow,
+          size: 30.0,
+        ),
+        label: const Text(
+          'Play',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+          ),
+        ));
   }
 }
