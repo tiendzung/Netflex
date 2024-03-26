@@ -23,12 +23,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   double _scrollOffset = 0.0;
   late ScrollController _scrollController;
+
   @override
-  void initState(){
+  void initState() {
     _scrollController = ScrollController()
       ..addListener(() {
         setState(() {
-          _scrollOffset=_scrollController.offset;
+          _scrollOffset = _scrollController.offset;
         });
       });
     super.initState();
@@ -43,29 +44,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey[850],
-        child: const Icon(Icons.cast),
-        onPressed: () => print('Cast'),
-      ),
-      appBar: PreferredSize(
-        preferredSize: Size(100.0,50.0),
-        child: CustomAppBar(),
-      ),
-      body: CustomScrollView(controller: _scrollController,
-      slivers: [
-        SliverToBoxAdapter(
-          child: ContentHeader(featuredContent : sintelContent),
-        )
-      ],)
-    );
+        extendBodyBehindAppBar: true,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.grey[850],
+          child: const Icon(Icons.cast),
+          onPressed: () => print('Cast'),
+        ),
+        appBar: PreferredSize(
+          preferredSize: Size(100.0, 50.0),
+          child: CustomAppBar(),
+        ),
+        body: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            SliverToBoxAdapter(
+              child: ContentHeader(featuredContent: sintelContent),
+            ),
+          ],
+        ));
   }
 }
-
