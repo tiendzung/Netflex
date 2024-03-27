@@ -3,7 +3,7 @@ import 'package:mobile/data/data.dart';
 import 'package:mobile/widgets/widgets.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -14,7 +14,7 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
+
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -80,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 contentList: myList,
               ),
             ),
+
           ],
         ));
   }
