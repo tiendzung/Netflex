@@ -32,7 +32,14 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             onPressed: () {
-
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(
+                     profiles: demoProfile[0],
+                   ),
+                ),
+              );
             },
           ),
         ],
