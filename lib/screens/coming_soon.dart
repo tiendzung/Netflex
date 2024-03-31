@@ -3,6 +3,7 @@ import 'package:mobile/assets.dart';
 import 'package:mobile/widgets/vertical_icon_button.dart';
 
 import '../data/data.dart';
+import 'screens.dart';
 
 class ComingSoon extends StatelessWidget {
   const ComingSoon({Key? key}) : super(key: key);
@@ -22,7 +23,14 @@ class ComingSoon extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => print("Search"),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchPage(),
+                ),
+              );
+            },
             icon: Icon(Icons.search),
             color: Colors.white,
           ),
