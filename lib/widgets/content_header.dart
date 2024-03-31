@@ -68,20 +68,22 @@ class ContentHeader extends StatelessWidget {
 }
 
 class _PlayButton extends StatelessWidget {
+  const _PlayButton({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
-        onPressed: () => print('Play'),
-        icon: const Icon(
-          Icons.play_arrow,
-          size: 30.0,
-        ),
-        label: const Text(
-          'Play',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
-          ),
-        ));
+    return FlatButton.icon(
+      padding: const EdgeInsets.fromLTRB(15.0, 5.0, 20.0, 5.0),
+      onPressed: () => print('play'),
+      color: Colors.white,
+      icon: const Icon(
+        Icons.play_arrow,
+        size: 30.0,
+      ),
+      label: const Text(
+        'Play',
+        style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+      ),
+    );
   }
 }

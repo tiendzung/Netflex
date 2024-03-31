@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/Screen/details.dart';
 import 'package:mobile/Screen/screens.dart';
-import 'package:mobile/details.dart';
-import 'package:mobile/models/profile.dart';
-import 'package:mobile/screens/profiles_more.dart';
 
 class NavScreen extends StatefulWidget {
   @override
@@ -12,12 +10,10 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
     MyHomePage(key: PageStorageKey('homeScreen')),
-    SearchPage(),
     Scaffold(),
+    ComingSoon(),
+    Detail(),
     Scaffold(),
-    ProfileScreen(
-      profiles: demoProfile[0],
-    ),
   ];
 
   final Map<String, IconData> _icons = const {
@@ -33,27 +29,25 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.black,
-        items: _icons
-            .map((title, icon) => MapEntry(
-            title,
-            BottomNavigationBarItem(
-              icon: Icon(icon, size: 30.0),
-              label: title,
-            )))
-            .values
-            .toList(),
-        currentIndex: _currentIndex,
-        selectedItemColor: Colors.white,
-        selectedFontSize: 11.0,
-        unselectedItemColor: Colors.grey,
-        unselectedFontSize: 11.0,
-        onTap: (index) => setState(() => _currentIndex = index),
-      )
-
-    );
+        body: _screens[_currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
+          items: _icons
+              .map((title, icon) => MapEntry(
+                  title,
+                  BottomNavigationBarItem(
+                    icon: Icon(icon, size: 30.0),
+                    label: title,
+                  )))
+              .values
+              .toList(),
+          currentIndex: _currentIndex,
+          selectedItemColor: Colors.white,
+          selectedFontSize: 11.0,
+          unselectedItemColor: Colors.grey,
+          unselectedFontSize: 11.0,
+          onTap: (index) => setState(() => _currentIndex = index),
+        ));
   }
 }
