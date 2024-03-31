@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/Screen/find_screen.dart';
 import 'package:mobile/Screen/screens.dart';
+import 'package:mobile/details.dart';
+import 'package:mobile/models/profile.dart';
+import 'package:mobile/screens/profiles_more.dart';
 
 class NavScreen extends StatefulWidget {
   @override
@@ -9,10 +13,12 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
     MyHomePage(key: PageStorageKey('homeScreen')),
+    SearchPage(),
     Scaffold(),
     Scaffold(),
-    Scaffold(),
-    Scaffold(),
+    ProfileScreen(
+      profiles: demoProfile[0],
+    ),
   ];
 
   final Map<String, IconData> _icons = const {
