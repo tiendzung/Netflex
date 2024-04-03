@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/assets.dart';
+import 'package:mobile/models/profile.dart';
 import 'package:mobile/widgets/vertical_icon_button.dart';
 
 import '../data/data.dart';
@@ -38,9 +39,25 @@ class ComingSoon extends StatelessWidget {
             width: 7.0,
           ),
           IconButton(
-            onPressed: () => print("Back"),
-            icon: Icon(Icons.man),
-            color: Colors.white,
+            icon: Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                image: const DecorationImage(
+                    image: AssetImage('assets/images/netflix-avatar.png')),
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(
+                    profiles: demoProfile[0],
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
