@@ -7,29 +7,12 @@ class Detail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        leading: IconButton(
-          icon: Icon(Icons.keyboard_arrow_left),
-          color: Colors.white,
-          onPressed: () => print("back"),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => print("Search"),
-            icon: Icon(Icons.search),
-            color: Colors.white,
-          ),
-          const SizedBox(
-            width: 7.0,
-          ),
-          IconButton(
-            onPressed: () => print("Back"),
-            icon: Icon(Icons.man),
-            color: Colors.white,
-          ),
-        ],
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 50.0),
+        child: BackBar(),
       ),
       body: ListView(
         children: [
@@ -66,7 +49,6 @@ class Detail extends StatelessWidget {
                         '2022',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 12.0,
                         ),
                       ),
                       const SizedBox(
@@ -82,7 +64,6 @@ class Detail extends StatelessWidget {
                           '13+',
                           style: TextStyle(
                             color: Colors.grey,
-                            fontSize: 12.0,
                           ),
                         ),
                       ),
@@ -93,31 +74,31 @@ class Detail extends StatelessWidget {
                         '1 Season',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 12.0,
                         ),
                       ),
                     ],
                   ),
                 ),
-                const _actionButton(isDownload: false),
-                const _actionButton(isDownload: true),
+                _PlayButton(),
+                _DownloadButton(),
                 const Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  padding: const EdgeInsets.symmetric(vertical: 25.0),
                   child: Text(
                     'Alone little boy moves into a ramshackle apartment building all on his own and makes friends with the broke manga artist who lives next door.',
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 13.0,
+                      fontSize: 16.0,
+                      // fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20.0),
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: Text(
                     'Starring: Patton Oswalt, Catherine, .....',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
-                      fontSize: 11.0,
+                      fontSize: 14.0,
                       // fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -127,10 +108,13 @@ class Detail extends StatelessWidget {
             ),
           ),
           Container(
+            // padding: const EdgeInsets.symmetric(horizontal: 5.0),
             decoration: BoxDecoration(
               color: Colors.grey,
+              // borderRadius: BorderRadius.circular(3),
             ),
             child: const SizedBox(
+              // width: 10.0,
               height: 2.0,
             ),
           ),
@@ -169,41 +153,50 @@ class Detail extends StatelessWidget {
   }
 }
 
-class _actionButton extends StatelessWidget {
-  final bool isDownload;
-
-  const _actionButton({Key? key, required this.isDownload}) : super(key: key);
+class _PlayButton extends StatelessWidget {
+  const _PlayButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
-    return Container(
-      width: screenSize.width,
-      child: FlatButton.icon(
-        onPressed: () => print('play'),
-        color: isDownload == true ? Colors.black26 : Colors.white,
-        icon: isDownload == true
-            ? const Icon(
-                Icons.download,
-                size: 30.0,
-                color: Colors.white,
-              )
-            : const Icon(
-                Icons.play_arrow,
-                size: 30.0,
-              ),
-        label: isDownload == true
-            ? const Text(
-                'Download',
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              )
-            : const Text(
-                'Play',
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
-              ),
+    return FlatButton.icon(
+      // padding: const EdgeInsets.fromLTRB(160.0, 5.0, 160.0, 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 160.0),
+      onPressed: () => print('play'),
+      color: Colors.white,
+      icon: const Icon(
+        Icons.play_arrow,
+        size: 30.0,
+      ),
+      label: const Text(
+        'Play',
+        style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+      ),
+    );
+  }
+}
+
+class _DownloadButton extends StatelessWidget {
+  const _DownloadButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton.icon(
+      // padding: const EdgeInsets.fromLTRB(160.0, 5.0, 160.0, 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 139.5),
+      onPressed: () => print('Download'),
+      color: Colors.black12,
+      icon: const Icon(
+        Icons.download,
+        size: 30.0,
+        color: Colors.white,
+      ),
+      label: const Text(
+        'Download',
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
     );
   }

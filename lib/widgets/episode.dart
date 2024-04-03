@@ -8,7 +8,7 @@ class Episode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -59,7 +59,7 @@ class Episode extends StatelessWidget {
                       '26m',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.7),
-                        fontSize: 11.0,
+                        fontSize: 14.0,
                       ),
                     ),
                   ],
@@ -77,7 +77,7 @@ class Episode extends StatelessWidget {
               'A strange four-year-old boy named Kotaro moves into Shimizu Apartment all on his own. He doest seem to have any parents or family around.',
               style: TextStyle(
                 color: Colors.white.withOpacity(0.8),
-                fontSize: 12.0,
+                fontSize: 14.0,
               ),
             ),
           ),

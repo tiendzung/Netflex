@@ -69,6 +69,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 contentList: myList,
               ),
             ),
+            SliverToBoxAdapter(
+              child: ContentList(
+                key: PageStorageKey('originals'),
+                title: 'Netflix Originals',
+                contentList: originals,
+                isOriginals: true,
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              sliver: SliverToBoxAdapter(
+                child: ContentList(
+                  key: PageStorageKey('trending'),
+                  title: 'Trending',
+                  contentList: trending,
+                ),
+              ),
+            )
           ],
         ));
   }
