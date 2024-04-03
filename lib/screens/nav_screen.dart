@@ -13,18 +13,20 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
     MyHomePage(key: PageStorageKey('homeScreen')),
-    // SearchPage(),
+    SearchPage(),
     ComingSoon(),
     Detail(),
-
+    ProfileScreen(
+      profiles: demoProfile[0],
+    ),
   ];
 
   final Map<String, IconData> _icons = const {
     'Home': Icons.home,
-    // 'Search': Icons.search,
+    'Search': Icons.search,
     'Coming Soon': Icons.queue_play_next,
     'Downloads': Icons.file_download,
-    // 'More': Icons.menu,
+    'More': Icons.menu,
   };
 
   int _currentIndex = 0;

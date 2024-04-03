@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/assets.dart';
-import 'package:mobile/models/profile.dart';
 import 'package:mobile/widgets/vertical_icon_button.dart';
 
 import '../data/data.dart';
-import 'screens.dart';
 
 class ComingSoon extends StatelessWidget {
   const ComingSoon({Key? key}) : super(key: key);
@@ -24,14 +22,7 @@ class ComingSoon extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchPage(),
-                ),
-              );
-            },
+            onPressed: () => print("Search"),
             icon: Icon(Icons.search),
             color: Colors.white,
           ),
@@ -39,25 +30,9 @@ class ComingSoon extends StatelessWidget {
             width: 7.0,
           ),
           IconButton(
-            icon: Container(
-              width: 25,
-              height: 25,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                image: const DecorationImage(
-                    image: AssetImage('assets/images/netflix-avatar.png')),
-              ),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreen(
-                    profiles: demoProfile[0],
-                  ),
-                ),
-              );
-            },
+            onPressed: () => print("Back"),
+            icon: Icon(Icons.man),
+            color: Colors.white,
           ),
         ],
       ),

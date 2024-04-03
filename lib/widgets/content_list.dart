@@ -44,7 +44,7 @@ class ContentList extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final Content content = contentList[index];
                 return GestureDetector(
-                  // onTap: () => print(content.name),
+                  onTap: () => print(content.name),
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 8.0),
                     height: isOriginals ? 400.0 : 200.0,

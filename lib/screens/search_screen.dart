@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/data/data.dart';
-import 'package:mobile/models/profile.dart';
 import 'package:mobile/widgets/widgets.dart';
-
-import 'screens.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -31,16 +28,7 @@ class _SearchPageState extends State<SearchPage> {
                     image: AssetImage('assets/images/netflix-avatar.png')),
               ),
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreen(
-                     profiles: demoProfile[0],
-                   ),
-                ),
-              );
-            },
+            onPressed: () {},
           ),
         ],
       ),
