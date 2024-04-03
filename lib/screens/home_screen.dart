@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.grey[850],
           child: const Icon(Icons.cast),
-          onPressed: () => print('Cast'),
+          onPressed: () => {},
         ),
         appBar: PreferredSize(
           preferredSize: Size(100.0, 50.0),

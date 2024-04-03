@@ -15,7 +15,7 @@ class VerticalIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap(),
+      onTap: () => {},
       child: Column(
         children: [
           Icon(icon, color: Colors.white),

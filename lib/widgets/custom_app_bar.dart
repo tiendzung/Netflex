@@ -29,15 +29,15 @@ class CustomAppBar extends StatelessWidget {
                   children: [
                     _AppBarButton(
                       title: 'TV Shows',
-                      onTap: () => print('TV Shows'),
+                      // onTap: () => print('TV Shows'),
                     ),
                     _AppBarButton(
                       title: 'Movies',
-                      onTap: () => print('Movies'),
+                      // onTap: () => print('Movies'),
                     ),
                     _AppBarButton(
                       title: 'My List',
-                      onTap: () => print('My List'),
+                      // onTap: () => print('My List'),
                     ),
                   ],
                 ),
@@ -50,18 +50,18 @@ class CustomAppBar extends StatelessWidget {
 
 class _AppBarButton extends StatelessWidget {
   final String title;
-  final Function onTap;
+  // final Function onTap;
 
   const _AppBarButton({
     Key? key,
-    required this.onTap,
+    // required this.onTap,
     required this.title,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap(),
+      // onTap: onTap(),
       child: Text(
         title,
         style: TextStyle(
