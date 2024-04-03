@@ -1,29 +1,16 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/assets.dart';
-// import 'package:google_fonts/google_fonts.dart';
 
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-
-
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+class _LogInScreenState extends State<LoginScreen> {
+  Color whiteclr = Colors.white;
+  Color blackclr = Colors.black;
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        leading: Image.asset(Assets.netflixLogo1),
-        leadingWidth: 120,
 
-      ),
+
+    return Scaffold(
+      backgroundColor: blackclr,
       body: Column(
         children: <Widget>[
           SafeArea(
@@ -36,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: (){Navigator.of(context).pop();},
                       icon: Icon(
                         Icons.arrow_back_ios,
-                        color: Colors.white,
+                        color: whiteclr,
                       ),
                     ),
                   ),
@@ -49,11 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       //     fontSize: 18,
                       //     color: Colors.white,
                       //     fontWeight: FontWeight.w700),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w600,
-                      ),
                     ),
                   )
                 ],
@@ -70,11 +52,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 //   fontSize: 20,
                 //   color: Colors.white,
                 //   fontWeight: FontWeight.w400),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w600,
-                ),
               ),
             ),
 
@@ -93,22 +70,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   fontSize: 20,
                     //   color: Colors.white,
                     //   fontWeight: FontWeight.w400),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                    ),
                   ),
                   Text('SHOW',
                     // style:GoogleFonts.rubik(
                     //   fontSize: 20,
                     //   color: Colors.white,
                     //   fontWeight: FontWeight.w400),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600,
-                    ),
                   ),
                 ],
               ),
@@ -128,11 +95,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   //   fontSize: 20,
                   //   color: Colors.white,
                   //   fontWeight: FontWeight.w600),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
               ),
             ),
@@ -151,11 +113,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   //   fontSize: 18,
                   //   color: Colors.white,
                   //   fontWeight: FontWeight.w600),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
               ),
             ),
@@ -165,33 +122,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
-
-  }
-
-
-}
-
-
-
-
-
-class _CustomAppBarMobile extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Row(
-        children: [
-          Image.asset(Assets.netflixLogo1),
-          const SizedBox(width: 12.0),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
-
