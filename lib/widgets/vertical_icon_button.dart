@@ -23,7 +23,7 @@ class VerticalIconButton extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              color: Color(0xffDEDEDE),
+              color: Colors.grey,
               fontSize: 12.0,
             ),
           ),

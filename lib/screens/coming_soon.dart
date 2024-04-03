@@ -67,19 +67,20 @@ class ComingSoon extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
-              children: [
+              children: const [
                 Icon(
                   Icons.notifications,
                   color: Colors.white,
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text(
                       'Notifications',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white,
-                        fontSize: 15.0,
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -116,7 +117,7 @@ class ComingSoon extends StatelessWidget {
                       title: 'Remind Me',
                       onTap: () => print('Remind Me'),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10.0,
                     ),
                     VerticalIconButton(
@@ -138,11 +139,11 @@ class ComingSoon extends StatelessWidget {
                 Text(
                   'Season 1 coming April 12',
                   style: TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 12.0,
                     color: Colors.grey,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Text(
@@ -156,7 +157,7 @@ class ComingSoon extends StatelessWidget {
                 Text(
                   sintelContent.description,
                   style: TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 12.0,
                     color: Colors.grey,
                   ),
                 ),
