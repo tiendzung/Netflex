@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.grey[850],
           child: const Icon(Icons.cast),
-          onPressed: () => print('Cast'),
+          onPressed: () => {},
         ),
         appBar: PreferredSize(
           preferredSize: Size(screenSize.width, 50.0),
@@ -71,6 +71,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 contentList: myList,
               ),
             ),
+            SliverToBoxAdapter(
+              child: ContentList(
+                key: PageStorageKey('originals'),
+                title: 'Netflix Originals',
+                contentList: originals,
+                isOriginals: true,
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              sliver: SliverToBoxAdapter(
+                child: ContentList(
+                  key: PageStorageKey('trending'),
+                  title: 'Trending',
+                  contentList: trending,
+                ),
+              ),
+            )
           ],
         ));
   }
