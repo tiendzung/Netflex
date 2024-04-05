@@ -13,7 +13,7 @@ class Detail extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: IconButton(
-          icon: Icon(Icons.keyboard_arrow_left),
+          icon: const Icon(Icons.keyboard_arrow_left),
           color: Colors.white,
           onPressed: () => print("back"),
         ),
@@ -30,9 +30,9 @@ class Detail extends StatelessWidget {
             icon: Icon(Icons.search),
             color: Colors.white,
           ),
-          const SizedBox(
-            width: 7.0,
-          ),
+          // const SizedBox(
+          //   width: 7.0,
+          // ),
           IconButton(
             icon: Container(
               width: 25,
@@ -68,12 +68,12 @@ class Detail extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10.0), // trai phai
+            padding: const EdgeInsets.symmetric(horizontal: 10.0), // trai phai
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  padding: EdgeInsets.symmetric(vertical: 5.0),
                   child: Text(
                     'Kotaro Lives Alone',
                     style: TextStyle(

@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         fontFamily: 'Netflix Sans',
       ),
-      home: LoginScreen(),
+      home: NavScreen(),
     );
   }
 }
