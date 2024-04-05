@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/assets.dart';
+import 'package:mobile/screens/screens.dart';
 import 'package:mobile/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -95,7 +96,14 @@ class SignInButton extends StatelessWidget {
         width: size.width * 0.9,
         height: 60,
         child: OutlinedButton(
-          onPressed: () => print("login"),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NavScreen(),
+              ),
+            );
+          },
           style: ButtonStyle(
             side: MaterialStateProperty.all(
               const BorderSide(

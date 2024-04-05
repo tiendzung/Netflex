@@ -15,8 +15,8 @@ class _NavScreenState extends State<NavScreen> {
     const MyHomePage(key: PageStorageKey('homeScreen')),
     // SearchPage(),
     const ComingSoon(),
-    // const Detail(),
-    LoginScreen(),
+    const Detail(),
+    // LoginScreen(),
   ];
 
   final Map<String, IconData> _icons = const {
