@@ -40,9 +40,10 @@ class LoginScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       appBar: AppBar(
+        centerTitle: false,
         backgroundColor: Colors.black,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () => print("back"),
         ),
@@ -52,6 +53,7 @@ class LoginScreen extends StatelessWidget {
           height: 33,
           fit: BoxFit.cover,
         ),
+
       ),
       body: Container(
         alignment: Alignment.center,
