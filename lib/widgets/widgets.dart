@@ -5,5 +5,5 @@ export 'previews.dart';
 export 'content_list.dart';
 export 'movie_card.dart';
 export 'text_field.dart';
-
+export 'download_movie.dart';
 export 'episode.dart';

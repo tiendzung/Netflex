@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/details.dart';
+import 'package:mobile/screens/download_screen.dart';
 import 'package:mobile/screens/screens.dart';
-// import 'package:mobile/details.dart';
-import 'package:mobile/models/profile.dart';
-import 'package:mobile/screens/profiles_more.dart';
 
 class NavScreen extends StatefulWidget {
   @override
@@ -15,7 +12,8 @@ class _NavScreenState extends State<NavScreen> {
     const MyHomePage(key: PageStorageKey('homeScreen')),
     // SearchPage(),
     const ComingSoon(),
-    const Detail(),
+    // const Detail(),
+    const DownloadPage(),
     // LoginScreen(),
   ];
 

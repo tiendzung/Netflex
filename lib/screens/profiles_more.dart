@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         elevation: 0,
         leading: const BackButton(),
       ),
-      body: Column(
+      body: ListView(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -130,23 +130,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           const SizedBox(height: 10),
-          Expanded(
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  onTap: items[index]['function'],
-                  title: Text(
-                    items[index]['title'],
-                    style: const TextStyle(
-                      color: Color(0XFFb3b3b3),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                    ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                onTap: items[index]['function'],
+                title: Text(
+                  items[index]['title'],
+                  style: const TextStyle(
+                    color: Color(0XFFb3b3b3),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ],
       ),

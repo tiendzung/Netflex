@@ -39,6 +39,7 @@ class ComingSoon extends StatelessWidget {
             width: 7.0,
           ),
           IconButton(
+            padding: const EdgeInsets.only(right: 15.0),
             icon: Container(
               width: 25,
               height: 25,
@@ -85,9 +86,12 @@ class ComingSoon extends StatelessWidget {
                     ),
                   ),
                 ),
-                Icon(
-                  Icons.keyboard_arrow_right_rounded,
-                  color: Colors.white,
+                Padding(
+                  padding: EdgeInsets.only(right: 10.0),
+                  child: Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),

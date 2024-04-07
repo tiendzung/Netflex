@@ -22,6 +22,7 @@ class _SearchPageState extends State<SearchPage> {
         elevation: 0,
         actions: [
           IconButton(
+            padding: const EdgeInsets.only(right: 15.0),
             icon: Container(
               width: 25,
               height: 25,
@@ -53,6 +54,7 @@ class _SearchPageState extends State<SearchPage> {
               color: Color(0xff333333),
             ),
             child: TextField(
+              cursorColor: Colors.white,
               onChanged: (value) => print(value),
               style: const TextStyle(
                 color: Colors.white,
@@ -83,26 +85,32 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
           // Top Searches text
-          const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 20,
-            ),
-            child: Text(
-              "Top Searches",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
           Expanded(
-            child: ListView.builder(
-              itemCount: myList.length,
-              itemBuilder: (context, index) => MovieCard(
-                movie: myList[index],
-              ),
+            child: ListView(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 20,
+                  ),
+                  child: Text(
+                    "Top Searches",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: myList.length,
+                  itemBuilder: (context, index) => MovieCard(
+                    movie: myList[index],
+                  ),
+                ),
+              ],
             ),
           ),
         ],
