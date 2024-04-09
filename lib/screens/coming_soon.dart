@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/assets.dart';
 import 'package:mobile/models/profile.dart';
+import 'package:mobile/screens/info_screen.dart';
 import 'package:mobile/widgets/vertical_icon_button.dart';
 
 import '../data/data.dart';
@@ -11,7 +12,9 @@ class ComingSoon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
+    final Size screenSize = MediaQuery
+        .of(context)
+        .size;
 
     return Scaffold(
       appBar: AppBar(
@@ -53,9 +56,10 @@ class ComingSoon extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProfileScreen(
-                    profiles: demoProfile[0],
-                  ),
+                  builder: (context) =>
+                      ProfileScreen(
+                        profiles: demoProfile[0],
+                      ),
                 ),
               );
             },
@@ -127,7 +131,10 @@ class ComingSoon extends StatelessWidget {
                     VerticalIconButton(
                       icon: Icons.info_outline,
                       title: 'Info',
-                      onTap: () => print('Info'),
+                      onTap: () =>
+                      {
+                        Showmodalinfo(context).showmodalinfo()
+                      },
                     ),
                   ],
                 ),
@@ -173,3 +180,5 @@ class ComingSoon extends StatelessWidget {
     );
   }
 }
+
+
