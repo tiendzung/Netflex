@@ -14,32 +14,24 @@ class _PasswordFieldState extends State<PasswordField> {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 2,
-          ),
-          TextField(
-            cursorColor: Colors.white,
-            // textAlign: TextAlign.justify,
-            obscureText: _isObscure,
-            decoration: InputDecoration(
-              hintText: 'Password',
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _isObscure ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.black12,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _isObscure = !_isObscure;
-                  });
-                },
-              ),
-              border: InputBorder.none,
+      child: TextField(
+        cursorColor: Colors.white,
+        obscureText: _isObscure,
+        decoration: InputDecoration(
+          hintText: 'Password',
+          suffixIcon: IconButton(
+            icon: Icon(
+              _isObscure ? Icons.visibility : Icons.visibility_off,
+              color: Colors.black12,
             ),
+            onPressed: () {
+              setState(() {
+                _isObscure = !_isObscure;
+              });
+            },
           ),
-        ],
+          border: InputBorder.none,
+        ),
       ),
     );
   }

@@ -37,7 +37,6 @@ class LoginScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
       appBar: AppBar(
         centerTitle: false,
@@ -53,33 +52,36 @@ class LoginScreen extends StatelessWidget {
           height: 33,
           fit: BoxFit.cover,
         ),
-
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: size.height * 0.14,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            alignment: Alignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: size.height * 0.14,
+                ),
+                InputField(
+                  onChange: (value) {},
+                ),
+                PasswordField(
+                  onChange: (value) {},
+                ),
+                const SignInButton(),
+                _helpButton(),
+                _signupButton(),
+                const Text(
+                  'Sign in is protected by Google reCAPTCHA to ensure you\'re not a bot',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ],
             ),
-            InputField(
-              onChange: (value) {},
-            ),
-            PasswordField(
-              onChange: (value) {},
-            ),
-            const SignInButton(),
-            _helpButton(),
-            _signupButton(),
-            const Text(
-              'Sign in is protected by Google reCAPTCHA to ensure you\'re not a bot',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12.0,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

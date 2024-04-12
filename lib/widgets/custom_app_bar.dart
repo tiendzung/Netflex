@@ -64,7 +64,7 @@ class _AppBarButton extends StatelessWidget {
       onTap: onTap,
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 16.0,
           fontWeight: FontWeight.w600,

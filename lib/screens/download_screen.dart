@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/data/data.dart';
 import 'package:mobile/models/profile.dart';
 import 'package:mobile/widgets/widgets.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'screens.dart';
 
@@ -13,6 +14,7 @@ class DownloadPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
+        automaticallyImplyLeading: false,
         title: const Text(
           'Downloads',
           style: TextStyle(
@@ -24,8 +26,11 @@ class DownloadPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SearchPage(),
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  duration: const Duration(milliseconds: 300),
+                  reverseDuration: const Duration(milliseconds: 300),
+                  child: SearchPage(),
                 ),
               );
             },
@@ -49,8 +54,11 @@ class DownloadPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => ProfileScreen(
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  duration: const Duration(milliseconds: 300),
+                  reverseDuration: const Duration(milliseconds: 300),
+                  child: ProfileScreen(
                     profiles: demoProfile[0],
                   ),
                 ),
