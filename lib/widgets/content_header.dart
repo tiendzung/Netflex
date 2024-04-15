@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/content_model.dart';
 import 'package:mobile/widgets/widgets.dart';
+import 'package:mobile/screens/screens.dart';
 
 class ContentHeader extends StatelessWidget {
   final Content featuredContent;
@@ -57,7 +58,12 @@ class ContentHeader extends StatelessWidget {
               VerticalIconButton(
                 icon: Icons.info_outline,
                 title: 'Info',
-                onTap: () => print('Info'),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Detail(),
+                  ),
+                ),
               ),
             ],
           ),

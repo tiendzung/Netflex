@@ -6,3 +6,4 @@ export 'profiles_more.dart';
 export 'login.dart';
 export 'details.dart';
 export 'splash.dart';
+export 'signup.dart';

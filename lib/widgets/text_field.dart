@@ -14,24 +14,34 @@ class _PasswordFieldState extends State<PasswordField> {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
-        cursorColor: Colors.white,
-        obscureText: _isObscure,
-        decoration: InputDecoration(
-          hintText: 'Password',
-          suffixIcon: IconButton(
-            icon: Icon(
-              _isObscure ? Icons.visibility : Icons.visibility_off,
-              color: Colors.black12,
-            ),
-            onPressed: () {
-              setState(() {
-                _isObscure = !_isObscure;
-              });
-            },
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 2,
           ),
-          border: InputBorder.none,
-        ),
+          TextField(
+            onChanged: widget.onChange,
+            cursorColor: Colors.grey,
+            obscureText: _isObscure,
+            style: const TextStyle(color: Colors.white70),
+            decoration: InputDecoration(
+              hintText: 'Password',
+              hintStyle: const TextStyle(color: Colors.white70, fontSize: 17),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isObscure ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isObscure = !_isObscure;
+                  });
+                },
+              ),
+              border: InputBorder.none,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -51,8 +61,10 @@ class InputField extends StatelessWidget {
       child: TextField(
         cursorColor: Colors.white,
         onChanged: onChange,
+        style: const TextStyle(color: Colors.white70),
         decoration: const InputDecoration(
-          hintText: "Email or phone number",
+          hintText: "Email",
+          hintStyle: TextStyle(color: Colors.white70, fontSize: 17),
           border: InputBorder.none,
         ),
       ),
@@ -70,13 +82,13 @@ class TextFieldContainer extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      // alignment: Alignment.center,
+      alignment: Alignment.center,
       margin: const EdgeInsets.symmetric(vertical: 10.0),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: size.width * 0.9,
       height: 60,
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: const Color(0xff333333),
         borderRadius: BorderRadius.circular(5),
       ),
       child: child,
