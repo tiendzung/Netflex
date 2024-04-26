@@ -8,3 +8,7 @@ export 'text_field.dart';
 export 'download_movie.dart';
 export 'episode.dart';
 export 'video_overlay.dart';
+export 'help.dart';
+export 'sign_in_button.dart';
+export 'alert_dialog.dart';
+export 'sign_up_button.dart';

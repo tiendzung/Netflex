@@ -3,6 +3,8 @@ import 'package:mobile/screens/download_screen.dart';
 import 'package:mobile/screens/screens.dart';
 
 class NavScreen extends StatefulWidget {
+  const NavScreen({Key? key}) : super(key: key);
+
   @override
   _NavScreenState createState() => _NavScreenState();
 }
