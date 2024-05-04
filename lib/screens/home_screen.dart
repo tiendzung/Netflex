@@ -40,13 +40,11 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.grey[850],
           child: const Icon(Icons.cast),
-          onPressed: () => {},
+          onPressed: () => print('Cast'),
         ),
         appBar: PreferredSize(
-          preferredSize: Size(screenSize.width, 50.0),
-          child: CustomAppBar(
-            scrollOffset: _scrollOffset,
-          ),
+          preferredSize: Size(100.0, 50.0),
+          child: CustomAppBar(),
         ),
         body: CustomScrollView(
           controller: _scrollController,
