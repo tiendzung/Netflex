@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/screens.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+void main() {
   runApp(const MyApp());
 }
 
@@ -23,7 +20,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         fontFamily: 'Netflix Sans',
       ),
-      home: const Splash(),
+      home: const VideoApp(
+        movieUrl:
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+      ),
     );
   }
 }

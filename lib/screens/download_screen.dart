@@ -30,7 +30,7 @@ class DownloadPage extends StatelessWidget {
                   type: PageTransitionType.rightToLeft,
                   duration: const Duration(milliseconds: 300),
                   reverseDuration: const Duration(milliseconds: 300),
-                  child: SearchPage(),
+                  child: const SearchPage(),
                 ),
               );
             },

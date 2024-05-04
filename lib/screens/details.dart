@@ -12,7 +12,11 @@ class Detail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        leading: const BackButton(),
+        leading: IconButton(
+          icon: const Icon(Icons.keyboard_arrow_left),
+          color: Colors.white,
+          onPressed: () => print("back"),
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -26,6 +30,9 @@ class Detail extends StatelessWidget {
             icon: Icon(Icons.search),
             color: Colors.white,
           ),
+          // const SizedBox(
+          //   width: 7.0,
+          // ),
           IconButton(
             icon: Container(
               width: 25,

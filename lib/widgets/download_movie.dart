@@ -50,6 +50,7 @@ class _DownloadMovieCardState extends State<DownloadMovieCard> {
             child: Icon(
               Icons.arrow_forward_ios,
               color: Colors.white,
+              size: 15,
             ),
           ),
         ],
