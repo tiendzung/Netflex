@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/models.dart';
-import 'package:mobile/widgets/widgets.dart';
+
 
 class ContentList extends StatelessWidget {
   final String title;
@@ -25,7 +25,6 @@ class ContentList extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Text(
               title,
-              // contentList.length.toString(),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,
@@ -45,18 +44,7 @@ class ContentList extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final Content content = contentList[index];
                 return GestureDetector(
-                  onTap: () => showModalBottomSheet(
-                      // enableDrag: false,
-                      // isDismissible: false,
-                      backgroundColor: const Color(0xff292929),
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
-                      ),
-                      context: context,
-                      builder: (context) => ModalBottomInfo(item: content)),
+                  // onTap: () => print(content.name),
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 8.0),
                     height: isOriginals ? 400.0 : 200.0,
@@ -64,7 +52,6 @@ class ContentList extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(content.imageUrl),
-                        // image: NetworkImage(content.imageUrl),
                         fit: BoxFit.cover,
                       ),
                     ),

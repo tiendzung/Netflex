@@ -68,46 +68,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          alignment: Alignment.center,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: size.height * 0.14,
-              ),
-              InputField(
-                onChange: (value) {
-                  setState(() => {
-                        email = value,
-                        if (checkAccount()) status = true else status = false,
-                      });
-                },
-              ),
-              PasswordField(
-                onChange: (value) {
-                  setState(() => {
-                        password = value,
-                        if (checkAccount()) status = true else status = false,
-                      });
-                },
-              ),
-              _ConfirmPassword(
-                onChange: (value) {
-                  setState(() => {
-                        confirmPassword = value,
-                        if (checkAccount()) status = true else status = false,
-                      });
-                },
-              ),
-              SignUpButton(
-                email: email,
-                password: password,
-                status: status,
-              ),
-            ],
-          ),
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: size.height * 0.14,
+            ),
+            InputField(
+              onChange: (value) {
+                setState(() => {
+                      email = value,
+                      if (checkAccount()) status = true else status = false,
+                    });
+              },
+            ),
+            PasswordField(
+              onChange: (value) {
+                setState(() => {
+                      password = value,
+                      if (checkAccount()) status = true else status = false,
+                    });
+              },
+            ),
+            _ConfirmPassword(
+              onChange: (value) {
+                setState(() => {
+                      confirmPassword = value,
+                      if (checkAccount()) status = true else status = false,
+                    });
+              },
+            ),
+            SignUpButton(
+              email: email,
+              password: password,
+              status: status,
+            ),
+          ],
         ),
       ),
     );
