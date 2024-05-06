@@ -14,7 +14,8 @@ class VideoOverlayWidget extends StatefulWidget {
 }
 
 class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
-  static const allSpeeds = <double>[0.25, 0.5, 1, 1.5, 2, 3, 5, 10];
+  static const allSpeeds = <double>[0.25, 0.5, 1, 1.5];
+  double _currentSpeed = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,7 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
                 )
               },
               child: const Icon(
-                Icons.replay_10_rounded,
+                Icons.replay_10,
                 color: Colors.white,
                 size: 50,
               ),
@@ -99,10 +100,9 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
                   ? widget.controller.pause()
                   : widget.controller.play(),
               child: widget.controller.value.isPlaying
-                  ? const Icon(Icons.pause_rounded,
-                      color: Colors.white, size: 70)
+                  ? const Icon(Icons.pause, color: Colors.white, size: 70)
                   : const Icon(
-                      Icons.play_arrow_rounded,
+                      Icons.play_arrow,
                       color: Colors.white,
                       size: 70,
                     ),
@@ -119,7 +119,7 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
                 )
               },
               child: const Icon(
-                Icons.forward_10_rounded,
+                Icons.forward_10,
                 color: Colors.white,
                 size: 50,
               ),
@@ -151,13 +151,13 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
           children: [
             ElevatedButton.icon(
               icon: const Icon(
-                Icons.speed_rounded,
+                Icons.speed,
                 size: 22,
                 color: Colors.white,
               ),
-              label: const Text(
-                'Speed (1x)',
-                style: TextStyle(
+              label: Text(
+                'Speed (${_currentSpeed}x)',
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -165,6 +165,7 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
               ),
               onPressed: () {
                 _showDialog(context);
+                widget.controller.pause();
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.transparent,
@@ -173,7 +174,7 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
             ),
             ElevatedButton.icon(
               icon: const Icon(
-                Icons.lock_open_rounded,
+                Icons.lock_open,
                 size: 22,
                 color: Colors.white,
               ),
@@ -191,29 +192,29 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
                 elevation: 0,
               ),
             ),
+            // ElevatedButton.icon(
+            //   icon: const Icon(
+            //     Icons.movie,
+            //     size: 22,
+            //     color: Colors.white,
+            //   ),
+            //   label: const Text(
+            //     'Episodes',
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //       fontSize: 12,
+            //       fontWeight: FontWeight.w400,
+            //     ),
+            //   ),
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     primary: Colors.transparent,
+            //     elevation: 0,
+            //   ),
+            // ),
             ElevatedButton.icon(
               icon: const Icon(
-                Icons.movie_rounded,
-                size: 22,
-                color: Colors.white,
-              ),
-              label: const Text(
-                'Episodes',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                primary: Colors.transparent,
-                elevation: 0,
-              ),
-            ),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.subtitles_rounded,
+                Icons.subtitles,
                 size: 22,
                 color: Colors.white,
               ),
@@ -231,26 +232,26 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
                 elevation: 0,
               ),
             ),
-            ElevatedButton.icon(
-              icon: const Icon(
-                Icons.skip_next_rounded,
-                size: 32,
-                color: Colors.white,
-              ),
-              label: const Text(
-                'Next Ep.',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                primary: Colors.transparent,
-                elevation: 0,
-              ),
-            ),
+            // ElevatedButton.icon(
+            //   icon: const Icon(
+            //     Icons.skip_next,
+            //     size: 32,
+            //     color: Colors.white,
+            //   ),
+            //   label: const Text(
+            //     'Next Ep.',
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //       fontSize: 12,
+            //       fontWeight: FontWeight.w400,
+            //     ),
+            //   ),
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //     primary: Colors.transparent,
+            //     elevation: 0,
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -263,18 +264,38 @@ class _VideoOverlayWidgetState extends State<VideoOverlayWidget> {
       builder: (BuildContext context) {
         return AlertDialog(
           // title: const Text("Speed"),
-          content: ListView.builder(
-              shrinkWrap: true,
-              itemCount: allSpeeds.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text('${allSpeeds[index]}x'),
-                );
-              }),
+          backgroundColor: Colors.black,
+          content: SizedBox(
+            height: 250,
+            width: 300,
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: allSpeeds.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.controller.setPlaybackSpeed(allSpeeds[index]);
+                          _currentSpeed = allSpeeds[index];
+                        });
+                        Navigator.of(context).pop();
+                        widget.controller.play();
+                      },
+                      child: Text('${allSpeeds[index]}x'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.transparent,
+                        elevation: 0,
+                      ),
+                    ),
+                  );
+                }),
+          ),
           actions: <Widget>[
             TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  widget.controller.play();
                 },
                 child: const Text("Close"))
           ],
