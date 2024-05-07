@@ -24,8 +24,8 @@ class ContentList extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Text(
-              title,
               // contentList.length.toString(),
+              title,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20.0,
@@ -63,8 +63,8 @@ class ContentList extends StatelessWidget {
                     width: isOriginals ? 200.0 : 130.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(content.imageUrl),
-                        // image: NetworkImage(content.imageUrl),
+                        // image: AssetImage(content.imageUrl),
+                        image: NetworkImage(content.imageUrl),
                         fit: BoxFit.cover,
                       ),
                     ),

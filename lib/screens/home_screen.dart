@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/Database.dart';
 import 'package:mobile/data/data.dart';
 import 'package:mobile/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
+import '../GetFromDB.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -22,6 +26,14 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       });
     super.initState();
+
+    getData();
+  }
+
+  Future<void> getData() async {
+    await GetFromDB.getContents().then((contents) {
+      context.read<Database>().addContents(contents);
+    });
   }
 
   @override
@@ -52,30 +64,22 @@ class _MyHomePageState extends State<MyHomePage> {
           controller: _scrollController,
           slivers: [
             SliverToBoxAdapter(
-              child: ContentHeader(featuredContent: sintelContent),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 20.0),
-              sliver: SliverToBoxAdapter(
-                child: Previews(
-                  key: PageStorageKey('previews'),
-                  title: 'Previews',
-                  contentList: previews,
-                ),
-              ),
+              child: ContentHeader(
+                  featuredContent: context.watch<Database>().content[4]),
             ),
             SliverToBoxAdapter(
               child: ContentList(
                 key: PageStorageKey('myList'),
                 title: 'My List',
-                contentList: myList,
+                // contentList: myList,
+                contentList: context.watch<Database>().content,
               ),
             ),
             SliverToBoxAdapter(
               child: ContentList(
                 key: PageStorageKey('originals'),
                 title: 'Netflix Originals',
-                contentList: originals,
+                contentList: context.watch<Database>().content,
                 isOriginals: true,
               ),
             ),
@@ -85,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ContentList(
                   key: PageStorageKey('trending'),
                   title: 'Trending',
-                  contentList: trending,
+                  contentList: context.watch<Database>().content,
                 ),
               ),
             )

@@ -3,7 +3,9 @@ import 'package:mobile/data/data.dart';
 import 'package:mobile/models/profile.dart';
 import 'package:mobile/widgets/widgets.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
+import '../Database.dart';
 import 'screens.dart';
 
 class DownloadPage extends StatelessWidget {
@@ -135,9 +137,9 @@ class DownloadPage extends StatelessWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: myList.length,
+                  itemCount: context.watch<Database>().content.length,
                   itemBuilder: (context, index) => DownloadMovieCard(
-                    movie: myList[index],
+                    movie: context.watch<Database>().content[index],
                   ),
                 ),
               ],

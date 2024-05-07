@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/content_model.dart';
 import 'package:mobile/widgets/widgets.dart';
-import 'package:mobile/screens/screens.dart';
 
 class ContentHeader extends StatelessWidget {
   final Content featuredContent;
@@ -17,10 +16,11 @@ class ContentHeader extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          height: 500.0,
+          height: 499.0,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(featuredContent.imageUrl),
+              // image: AssetImage(featuredContent.imageUrl),
+              image: NetworkImage(featuredContent.imageUrl),
               fit: BoxFit.cover,
             ),
           ),
@@ -39,7 +39,8 @@ class ContentHeader extends StatelessWidget {
           bottom: 110.0,
           child: SizedBox(
             width: 250.0,
-            child: Image.asset(featuredContent.titleImageUrl),
+            // child: Image.asset(featuredContent.titleImageUrl),
+            child: Image.network(featuredContent.titleImageUrl),
           ),
         ),
         Positioned(
@@ -58,12 +59,13 @@ class ContentHeader extends StatelessWidget {
               VerticalIconButton(
                 icon: Icons.info_outline,
                 title: 'Info',
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Detail(),
-                  ),
-                ),
+                // onTap: () => Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => Detail(),
+                //   ),
+                // ),
+                onTap: () => {},
               ),
             ],
           ),

@@ -5,25 +5,27 @@ import '../widgets/widgets.dart';
 import '../../assets.dart';
 
 class Detail extends StatelessWidget {
-  const Detail({Key? key}) : super(key: key);
+  final Content item;
+
+  const Detail({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        leading: const BackButton(),
+        // leading: const BackButton(),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchPage(),
+                  builder: (context) => const SearchPage(),
                 ),
               );
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
             color: Colors.white,
           ),
           IconButton(
@@ -55,7 +57,8 @@ class Detail extends StatelessWidget {
             height: 250.0,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(Assets.kotaro),
+                // image: AssetImage(item.imageUrl),
+                image: NetworkImage(item.titleImageUrl),
                 fit: BoxFit.cover,
               ),
             ),
@@ -65,11 +68,11 @@ class Detail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5.0),
                   child: Text(
-                    'Kotaro Lives Alone',
-                    style: TextStyle(
+                    item.name,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 30.0,
                       fontWeight: FontWeight.bold,
@@ -80,9 +83,9 @@ class Detail extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 25.0),
                   child: Row(
                     children: [
-                      const Text(
-                        '2022',
-                        style: TextStyle(
+                      Text(
+                        item.releaseYear,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12.0,
                         ),
@@ -96,9 +99,9 @@ class Detail extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(3),
                         ),
-                        child: const Text(
-                          '13+',
-                          style: TextStyle(
+                        child: Text(
+                          item.ageLimit + "+",
+                          style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 12.0,
                           ),
@@ -107,22 +110,15 @@ class Detail extends StatelessWidget {
                       const SizedBox(
                         width: 15.0,
                       ),
-                      const Text(
-                        '1 Season',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12.0,
-                        ),
-                      ),
                     ],
                   ),
                 ),
                 const _actionButton(isDownload: false),
                 const _actionButton(isDownload: true),
-                const Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
                   child: Text(
-                    'Alone little boy moves into a ramshackle apartment building all on his own and makes friends with the broke manga artist who lives next door.',
+                    item.description,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 13.0,
@@ -130,57 +126,27 @@ class Detail extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 20.0),
+                  padding: const EdgeInsets.only(bottom: 20.0),
                   child: Text(
-                    'Starring: Patton Oswalt, Catherine, .....',
+                    "Creator: " + item.director,
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
                       fontSize: 11.0,
-                      // fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
-                _ButtonBar(),
+                const _ButtonBar(),
               ],
             ),
           ),
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.grey,
             ),
             child: const SizedBox(
               height: 2.0,
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'EPISODES',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Text(
-                  'Season 1',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Episode(),
         ],
       ),
     );

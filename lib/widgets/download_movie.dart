@@ -28,7 +28,8 @@ class _DownloadMovieCardState extends State<DownloadMovieCard> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
-                image: AssetImage(widget.movie.imageUrl),
+                // image: AssetImage(widget.movie.imageUrl),
+                image: NetworkImage(widget.movie.imageUrl),
                 fit: BoxFit.cover,
               ),
             ),

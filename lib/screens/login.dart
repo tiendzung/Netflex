@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _signupButton() {
     return FlatButton(
       onPressed: () => {
-        Navigator.pushReplacement(context,
+        Navigator.push(context,
             MaterialPageRoute(builder: (context) => const SignUpScreen()))
       },
       child: const Text(
@@ -34,69 +34,69 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black,
-      appBar: AppBar(
         backgroundColor: Colors.black,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.white,
-          onPressed: () => print("back"),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () => print("back"),
+          ),
+          title: Image.asset(
+            Assets.netflixLogo1,
+            width: 106,
+            height: 33,
+            fit: BoxFit.cover,
+          ),
         ),
-        title: Image.asset(
-          Assets.netflixLogo1,
-          width: 106,
-          height: 33,
-          fit: BoxFit.cover,
-        ),
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: size.height * 0.14,
+        body: SingleChildScrollView(
+          child: Container(
+            alignment: Alignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: size.height * 0.14,
+                ),
+                InputField(
+                  onChange: (value) {
+                    setState(() => {
+                          email = value,
+                          if (email.contains("@") && password.length > 6)
+                            status = true
+                          else
+                            status = false,
+                        });
+                  },
+                ),
+                PasswordField(
+                  onChange: (value) {
+                    setState(() => {
+                          password = value,
+                          if (email.contains("@") && password.length > 6)
+                            status = true
+                          else
+                            status = false,
+                        });
+                  },
+                ),
+                SignInButton(
+                  email: email,
+                  password: password,
+                  status: status,
+                ),
+                const NeedHelpButton(),
+                _signupButton(),
+                const Text(
+                  'Sign in is protected by Google reCAPTCHA to ensure you\'re not a bot',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ],
             ),
-            InputField(
-              onChange: (value) {
-                setState(() => {
-                      email = value,
-                      if (email.contains("@") && password.length > 6)
-                        status = true
-                      else
-                        status = false,
-                    });
-              },
-            ),
-            PasswordField(
-              onChange: (value) {
-                setState(() => {
-                      password = value,
-                      if (email.contains("@") && password.length > 6)
-                        status = true
-                      else
-                        status = false,
-                    });
-              },
-            ),
-            SignInButton(
-              email: email,
-              password: password,
-              status: status,
-            ),
-            const NeedHelpButton(),
-            _signupButton(),
-            const Text(
-              'Sign in is protected by Google reCAPTCHA to ensure you\'re not a bot',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12.0,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
