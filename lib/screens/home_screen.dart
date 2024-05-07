@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SliverToBoxAdapter(
               child: ContentList(
-                key: PageStorageKey('myList'),
+                key: const PageStorageKey('myList'),
                 title: 'My List',
                 // contentList: myList,
                 contentList: context.watch<Database>().content,
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SliverToBoxAdapter(
               child: ContentList(
-                key: PageStorageKey('originals'),
+                key: const PageStorageKey('originals'),
                 title: 'Netflix Originals',
                 contentList: context.watch<Database>().content,
                 isOriginals: true,
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.only(bottom: 20.0),
               sliver: SliverToBoxAdapter(
                 child: ContentList(
-                  key: PageStorageKey('trending'),
+                  key: const PageStorageKey('trending'),
                   title: 'Trending',
                   contentList: context.watch<Database>().content,
                 ),

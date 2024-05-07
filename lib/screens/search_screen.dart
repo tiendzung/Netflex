@@ -74,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
                     _isSearching = true;
                   });
                   // print(value);
-                  for (Content content in previews) {
+                  for (Content content in context.watch<Database>().content) {
                     if (content.name
                         .toLowerCase()
                         .contains(value.toLowerCase())) {
@@ -153,9 +153,9 @@ class _SearchPageState extends State<SearchPage> {
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: trending.length,
+                        itemCount: context.watch<Database>().content.length,
                         itemBuilder: (context, index) => MovieCard(
-                          movie: trending[index],
+                          movie: context.watch<Database>().content[index],
                         ),
                       )
                     : ListView.builder(

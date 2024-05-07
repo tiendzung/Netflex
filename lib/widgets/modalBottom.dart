@@ -47,34 +47,34 @@ class ModalBottomInfo extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          item.releaseYear,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12.0,
+                      padding: const EdgeInsets.symmetric(vertical: 3.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            item.releaseYear,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12.0,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          item.ageLimit,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12.0,
+                          const SizedBox(
+                            width: 10,
                           ),
-                          // ),
-                          SizedBox(
-                            width: 15.0,
+                          Text(
+                            item.ageLimit,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12.0,
+                            ),
+                            // ),
+                            // SizedBox(
+                            //   width: 15.0,
                           ),
                         ],
                       ),
                     ),
                     Text(
-                      sintelContent.description,
+                      item.description,
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -100,7 +100,7 @@ class ModalBottomInfo extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => Detail(
-                        // item: item,
+                      item: item,
                     ),
                   ),
                 ),
