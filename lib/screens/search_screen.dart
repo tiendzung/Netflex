@@ -21,6 +21,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
+    List<Content> _contents = context.watch<Database>().content;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -71,7 +72,8 @@ class _SearchPageState extends State<SearchPage> {
                     _isSearching = true;
                   });
                   // print(value);
-                  for (Content content in context.watch<Database>().content) {
+                  for (Content content in _contents) {
+                    print(content.name);
                     if (content.name
                         .toLowerCase()
                         .contains(value.toLowerCase())) {
@@ -150,9 +152,9 @@ class _SearchPageState extends State<SearchPage> {
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: context.watch<Database>().content.length,
+                        itemCount: _contents.length,
                         itemBuilder: (context, index) => MovieCard(
-                          movie: context.watch<Database>().content[index],
+                          movie: _contents[index],
                         ),
                       )
                     : ListView.builder(
