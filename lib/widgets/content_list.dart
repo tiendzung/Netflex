@@ -33,7 +33,7 @@ class ContentList extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: isOriginals ? 500.0 : 220.0,
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(

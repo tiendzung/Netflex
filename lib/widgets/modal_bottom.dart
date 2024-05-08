@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/widgets/widgets.dart';
-import '../data/data.dart';
 import '../models/content_model.dart';
 import '../screens/screens.dart';
 
@@ -134,7 +133,6 @@ class ModalBottomInfo extends StatelessWidget {
         )
       ],
     );
-    ;
   }
 }
 

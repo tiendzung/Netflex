@@ -4,7 +4,7 @@ import 'package:mobile/widgets/vertical_icon_button.dart';
 
 class AddListButton extends StatefulWidget {
   final Content movie;
-  AddListButton({Key? key, required this.movie}) : super(key: key);
+  const AddListButton({Key? key, required this.movie}) : super(key: key);
 
   @override
   State<AddListButton> createState() => _AddListButtonState();

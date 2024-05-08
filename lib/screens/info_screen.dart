@@ -9,8 +9,8 @@ class Showmodalinfo {
       return Column(
         children: <Widget>[
           ListTile(
-            leading: Icon(Icons.ac_unit),
-            title: Text('Cooling'),
+            leading: const Icon(Icons.ac_unit),
+            title: const Text('Cooling'),
             onTap: () => print('tap'),
           )
         ],

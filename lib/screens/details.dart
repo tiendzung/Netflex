@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/screens/screens.dart';
 import '../models/models.dart';
 import '../widgets/widgets.dart';
-import '../../assets.dart';
 
 class Detail extends StatelessWidget {
   final Content item;
@@ -161,7 +160,7 @@ class _actionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: screenSize.width,
       child: FlatButton.icon(
         onPressed: () => print('play'),

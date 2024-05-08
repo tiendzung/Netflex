@@ -12,5 +12,5 @@ export 'help.dart';
 export 'sign_in_button.dart';
 export 'alert_dialog.dart';
 export 'sign_up_button.dart';
-export 'modalBottom.dart';
+export 'modal_bottom.dart';
 export 'add_button.dart';
