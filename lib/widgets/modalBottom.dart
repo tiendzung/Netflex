@@ -88,7 +88,7 @@ class ModalBottomInfo extends StatelessWidget {
             ),
           ],
         ),
-        const _ButtonBar(),
+        _ButtonBar(item: item),
         SizedBox(
           height: 50.0,
           child: Card(
@@ -139,7 +139,8 @@ class ModalBottomInfo extends StatelessWidget {
 }
 
 class _ButtonBar extends StatelessWidget {
-  const _ButtonBar({Key? key}) : super(key: key);
+  final Content item;
+  const _ButtonBar({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -156,10 +157,7 @@ class _ButtonBar extends StatelessWidget {
               icon: Icons.cloud_download,
               title: 'Download',
               onTap: () => print('My list')),
-          VerticalIconButton(
-              icon: Icons.thumb_up,
-              title: 'List',
-              onTap: () => print('My list')),
+          AddListButton(movie: item),
           VerticalIconButton(
               icon: Icons.share, title: 'Share', onTap: () => print('Share')),
         ],
