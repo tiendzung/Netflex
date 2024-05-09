@@ -112,8 +112,8 @@ class Detail extends StatelessWidget {
                     ],
                   ),
                 ),
-                const _actionButton(isDownload: false),
-                const _actionButton(isDownload: true),
+                _actionButton(item: item, isDownload: false),
+                _actionButton(item: item, isDownload: true),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
                   child: Text(
@@ -153,9 +153,11 @@ class Detail extends StatelessWidget {
 }
 
 class _actionButton extends StatelessWidget {
+  final Content item;
   final bool isDownload;
 
-  const _actionButton({Key? key, required this.isDownload}) : super(key: key);
+  const _actionButton({Key? key, required this.item, required this.isDownload})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +165,16 @@ class _actionButton extends StatelessWidget {
     return SizedBox(
       width: screenSize.width,
       child: FlatButton.icon(
-        onPressed: () => print('play'),
+        onPressed: () => !isDownload
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VideoApp(
+                    movieUrl: item.videoUrl,
+                  ),
+                ),
+              )
+            : null,
         color: isDownload == true ? Colors.black26 : Colors.white,
         icon: isDownload == true
             ? const Icon(

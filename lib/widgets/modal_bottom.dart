@@ -150,7 +150,15 @@ class _ButtonBar extends StatelessWidget {
           VerticalIconButton(
               icon: Icons.play_arrow_outlined,
               title: 'Play',
-              onTap: () => print('My list')),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => VideoApp(
+                  movieUrl: item.videoUrl,
+                ),
+              ),
+            ),
+          ),
           VerticalIconButton(
               icon: Icons.cloud_download,
               title: 'Download',

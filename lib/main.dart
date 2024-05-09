@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       //       'https://firebasestorage.googleapis.com/v0/b/netflix-8b506.appspot.com/o/videos%2Fbee.mp4?alt=media&token=5514f33d-f3ad-410b-86e1-ade8d490c0e6',
       // ),
       // home: MainPage(),
-      home: const NavScreen(),
+      home: const LoginScreen(),
     );
   }
 }
