@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/models/models.dart';
 import 'package:mobile/widgets/widgets.dart';
 
+import '../screens/details.dart';
 
 class MovieCard extends StatefulWidget {
   const MovieCard({Key? key, required this.movie}) : super(key: key);
@@ -43,7 +44,7 @@ class _MovieCardState extends State<MovieCard> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
-                  image: NetworkImage(widget.movie.imageUrl),
+                  image: AssetImage(widget.movie.imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/data/data.dart';
 import 'package:mobile/models/profile.dart';
 import 'package:mobile/widgets/widgets.dart';
 import 'package:page_transition/page_transition.dart';

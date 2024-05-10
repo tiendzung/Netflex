@@ -35,20 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.black,
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            color: Colors.white,
-            onPressed: () => print("back"),
-          ),
-          title: Image.asset(
-            Assets.netflixLogo1,
-            width: 106,
-            height: 33,
-            fit: BoxFit.cover,
-          ),
-        ),
         body: SingleChildScrollView(
           child: Container(
             alignment: Alignment.center,
@@ -56,7 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: size.height * 0.14,
+                  height: 200,
+                  width: 200,
+                  child: Image.asset(Assets.netflixLogo1),
                 ),
                 InputField(
                   onChange: (value) {

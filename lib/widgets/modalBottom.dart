@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/widgets/widgets.dart';
+import '../data/data.dart';
 import '../models/content_model.dart';
 import '../screens/screens.dart';
 
@@ -87,7 +88,7 @@ class ModalBottomInfo extends StatelessWidget {
             ),
           ],
         ),
-        _ButtonBar(item: item),
+        const _ButtonBar(),
         SizedBox(
           height: 50.0,
           child: Card(
@@ -133,12 +134,12 @@ class ModalBottomInfo extends StatelessWidget {
         )
       ],
     );
+    ;
   }
 }
 
 class _ButtonBar extends StatelessWidget {
-  final Content item;
-  const _ButtonBar({Key? key, required this.item}) : super(key: key);
+  const _ButtonBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -150,20 +151,15 @@ class _ButtonBar extends StatelessWidget {
           VerticalIconButton(
               icon: Icons.play_arrow_outlined,
               title: 'Play',
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => VideoApp(
-                  movieUrl: item.videoUrl,
-                ),
-              ),
-            ),
-          ),
+              onTap: () => print('My list')),
           VerticalIconButton(
               icon: Icons.cloud_download,
               title: 'Download',
               onTap: () => print('My list')),
-          AddListButton(movie: item),
+          VerticalIconButton(
+              icon: Icons.thumb_up,
+              title: 'List',
+              onTap: () => print('My list')),
           VerticalIconButton(
               icon: Icons.share, title: 'Share', onTap: () => print('Share')),
         ],

@@ -4,6 +4,7 @@ import 'package:mobile/models/profile.dart';
 import 'package:mobile/widgets/vertical_icon_button.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../data/data.dart';
 import 'screens.dart';
 
 class ComingSoon extends StatelessWidget {
@@ -32,7 +33,7 @@ class ComingSoon extends StatelessWidget {
                   type: PageTransitionType.rightToLeft,
                   duration: const Duration(milliseconds: 300),
                   reverseDuration: const Duration(milliseconds: 300),
-                  child: const SearchPage(),
+                  child: SearchPage(),
                 ),
               );
             },
@@ -107,7 +108,7 @@ class ComingSoon extends StatelessWidget {
           Container(
             width: 140,
             height: 190,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(Assets.atla),
                 fit: BoxFit.cover,
@@ -120,7 +121,7 @@ class ComingSoon extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Image(image: AssetImage(Assets.atlaTitle)),
+                Image(image: AssetImage(Assets.atlaTitle)),
                 Row(
                   children: [
                     VerticalIconButton(
@@ -148,7 +149,7 @@ class ComingSoon extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'Season 1 coming April 12',
                   style: TextStyle(
@@ -156,12 +157,12 @@ class ComingSoon extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Text(
                   'Avatar',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -169,7 +170,7 @@ class ComingSoon extends StatelessWidget {
                 ),
                 Text(
                   "sintelContent.description",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12.0,
                     color: Colors.grey,
                   ),
