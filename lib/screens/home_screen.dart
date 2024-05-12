@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/Database.dart';
-import 'package:mobile/data/data.dart';
 import 'package:mobile/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 

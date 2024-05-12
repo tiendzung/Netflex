@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile/models/content_model.dart';
 import 'package:mobile/widgets/widgets.dart';
 
+import '../screens/screens.dart';
+
 class ContentHeader extends StatelessWidget {
   final Content featuredContent;
 
@@ -50,22 +52,19 @@ class ContentHeader extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              VerticalIconButton(
-                icon: Icons.add,
-                title: 'List',
-                onTap: () => print('My List'),
-              ),
-              _PlayButton(),
+              AddListButton(movie: featuredContent),
+              _PlayButton(item: featuredContent),
               VerticalIconButton(
                 icon: Icons.info_outline,
                 title: 'Info',
-                // onTap: () => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => Detail(),
-                //   ),
-                // ),
-                onTap: () => {},
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Detail(
+                      item: featuredContent,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -76,13 +75,21 @@ class ContentHeader extends StatelessWidget {
 }
 
 class _PlayButton extends StatelessWidget {
-  const _PlayButton({Key? key}) : super(key: key);
+  final Content item;
+  const _PlayButton({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FlatButton.icon(
       padding: const EdgeInsets.fromLTRB(15.0, 5.0, 20.0, 5.0),
-      onPressed: () => print('play'),
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VideoApp(
+            movieUrl: item.videoUrl,
+          ),
+        ),
+      ),
       color: Colors.white,
       icon: const Icon(
         Icons.play_arrow,
