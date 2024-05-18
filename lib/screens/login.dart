@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/assets.dart';
+
 import 'package:mobile/screens/screens.dart';
 import 'package:mobile/widgets/widgets.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
+
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
@@ -67,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             status = false,
                         });
                   },
+
                 ),
                 SignInButton(
                   email: email,
@@ -85,6 +89,35 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
+
         ));
+
+  }
+
+
+}
+
+
+
+
+
+class _CustomAppBarMobile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Row(
+        children: [
+          Image.asset(Assets.netflixLogo1),
+          const SizedBox(width: 12.0),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
+

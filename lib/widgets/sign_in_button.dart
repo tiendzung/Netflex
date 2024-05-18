@@ -44,6 +44,7 @@ class _SignInButtonState extends State<SignInButton> {
                         MaterialPageRoute(
                             builder: (context) => const NavScreen()));
                   } on FirebaseAuthException catch (e) {
+                    print(e.code);
                     if (e.code == 'user-not-found') {
                       // print('No user found for that email.');
                       alertDialogSignIn(context, true);

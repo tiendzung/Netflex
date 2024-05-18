@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile/models/profile.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -34,6 +35,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     },
   ];
 
+  String? userEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentUserEmail();
+  }
+
+  Future<void> _getCurrentUserEmail() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    setState(() {
+      userEmail = user?.email ?? "Unknown User";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,12 +80,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       image: DecorationImage(
-                          image: AssetImage(widget.profiles.imgPath)),
+                          image: AssetImage(demoProfile[0].imgPath)),
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    widget.profiles.name,
+                    userEmail ?? 'Loading...',
                     style: const TextStyle(
                       color: Color(0XFFe6e6e6),
                       fontSize: 12,

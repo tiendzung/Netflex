@@ -1,9 +1,28 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:mobile/models/models.dart';
+import 'package:firebase_core/firebase_core.dart';
+class FirebaseDatabaseService {
+  final DatabaseReference _database = FirebaseDatabase.instance.reference();
+
+  Future<void> addContent(List<Content> previews) async {
+    for (var content in previews) {
+      await _database.child('contents').push().set({
+        'name': content.name,
+        'imageUrl': content.imageUrl,
+        'titleImageUrl': content.titleImageUrl,
+        'description': content.description,
+        'videoUrl': content.videoUrl,
+        'releaseYear': content.releaseYear,
+        'ageLimit': content.ageLimit,
+        'director': content.director
+      });
+    }
+  }
+}
 
 class GetFromDB {
   static Future<List<Content>> getContents() async {
-    final res = await FirebaseDatabase.instance.ref('/content').get();
+    final res = await FirebaseDatabase.instance.ref('/contents').get();
 
     final List<Content> contents = [];
 
@@ -14,9 +33,11 @@ class GetFromDB {
           name: value['name'],
           imageUrl: value['imageUrl'],
           titleImageUrl: value['titleImageUrl'],
+          description: value['description'],
           videoUrl: value['videoUrl'],
-          description: value['description'], releaseYear: value['releaseYear'],
-          ageLimit: value['ageLimit'], director: value['director'],
+          releaseYear: value['releaseYear'],
+          ageLimit: value['ageLimit'],
+          director: value['director'],
         ),
       );
     });
@@ -25,3 +46,5 @@ class GetFromDB {
     return contents;
   }
 }
+
+

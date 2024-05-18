@@ -3,9 +3,11 @@ import 'package:mobile/Database.dart';
 import 'package:mobile/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  _initializeNotifications();
   await Firebase.initializeApp();
   // runApp(const MyApp());
   runApp(MultiProvider(
@@ -39,3 +41,16 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+Future<void> _initializeNotifications() async {
+  const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  final InitializationSettings initializationSettings = InitializationSettings(
+    android: initializationSettingsAndroid,
+  );
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+}
+
