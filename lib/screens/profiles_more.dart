@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile/models/profile.dart';
+// import 'package:mobile/authentication/authentication.dart';
+import 'package:mobile/screens/screens.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, required this.profiles}) : super(key: key);
@@ -12,35 +14,36 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  List items = [
-    {
-      'title': 'My List',
-      'function': () => () {},
-    },
-    {
-      'title': 'App Settings',
-      'function': () => () {},
-    },
-    {
-      'title': 'Account',
-      'function': () => () {},
-    },
-    {
-      'title': 'Help',
-      'function': () => () {},
-    },
-    {
-      'title': 'Sign Out',
-      'function': () => () {},
-    },
-  ];
 
-  String? userEmail;
+  late List<Map<String, dynamic>> items;
+  String? userEmail;  
 
   @override
   void initState() {
     super.initState();
     _getCurrentUserEmail();
+    items = [
+      {
+        'title': 'My List',
+        'function': () => () {},
+      },
+      {
+        'title': 'App Settings',
+        'function': () => () {},
+      },
+      {
+        'title': 'Account',
+        'function': () {},
+      },
+      {
+        'title': 'Help',
+        'function': () => () {},
+      },
+      {
+        'title': 'Sign Out',
+        'function': () => _signOut(context),
+      },
+    ];
   }
 
   Future<void> _getCurrentUserEmail() async {
@@ -48,6 +51,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       userEmail = user?.email ?? "Unknown User";
     });
+  }
+
+  Future<void> _signOut(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    // Navigate to login screen after sign out
+      Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
   }
 
   @override
@@ -152,7 +163,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             itemCount: items.length,
             itemBuilder: (context, index) {
               return ListTile(
-                onTap: items[index]['function'],
+                onTap: () {
+                  items[index]['function']();
+                },
                 title: Text(
                   items[index]['title'],
                   style: const TextStyle(

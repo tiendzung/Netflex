@@ -15,6 +15,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   double _scrollOffset = 0.0;
   late ScrollController _scrollController;
+  bool _isDataLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
 
   @override
   void initState() {
@@ -25,20 +26,22 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       });
     super.initState();
-
+    // Thực hiện tải dữ liệu khi initState được gọi
     getData();
   }
 
   Future<void> getData() async {
     await GetFromDB.getContents().then((contents) {
       context.read<Database>().addContents(contents);
+      setState(() {
+        _isDataLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
+      });
     });
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -47,52 +50,55 @@ class _MyHomePageState extends State<MyHomePage> {
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.grey[850],
-          child: const Icon(Icons.cast),
-          onPressed: () => {},
+      extendBodyBehindAppBar: true,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.grey[850],
+        child: const Icon(Icons.cast),
+        onPressed: () => {},
+      ),
+      appBar: PreferredSize(
+        preferredSize: Size(screenSize.width, 50.0),
+        child: CustomAppBar(
+          scrollOffset: _scrollOffset,
         ),
-        appBar: PreferredSize(
-          preferredSize: Size(screenSize.width, 50.0),
-          child: CustomAppBar(
-            scrollOffset: _scrollOffset,
-          ),
-        ),
-        body: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverToBoxAdapter(
-              child: ContentHeader(
-                  featuredContent: context.watch<Database>().content[4]),
-            ),
-            SliverToBoxAdapter(
-              child: ContentList(
-                key: const PageStorageKey('myList'),
-                title: 'My List',
-                // contentList: myList,
-                contentList: context.watch<Database>().content,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: ContentList(
-                key: const PageStorageKey('originals'),
-                title: 'Netflix Originals',
-                contentList: context.watch<Database>().content,
-                isOriginals: true,
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              sliver: SliverToBoxAdapter(
-                child: ContentList(
-                  key: const PageStorageKey('trending'),
-                  title: 'Trending',
-                  contentList: context.watch<Database>().content,
+      ),
+      body: _isDataLoaded // Kiểm tra xem dữ liệu đã được tải xong chưa
+          ? CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: ContentHeader(
+                    featuredContent: context.watch<Database>().content[4],
+                  ),
                 ),
-              ),
+                SliverToBoxAdapter(
+                  child: ContentList(
+                    key: const PageStorageKey('myList'),
+                    title: 'My List',
+                    contentList: context.watch<Database>().content,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: ContentList(
+                    key: const PageStorageKey('originals'),
+                    title: 'Netflix Originals',
+                    contentList: context.watch<Database>().content,
+                    isOriginals: true,
+                  ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  sliver: SliverToBoxAdapter(
+                    child: ContentList(
+                      key: const PageStorageKey('trending'),
+                      title: 'Trending',
+                      contentList: context.watch<Database>().content,
+                    ),
+                  ),
+                )
+              ],
             )
-          ],
-        ));
+          : Center(child: CircularProgressIndicator()), // Hiển thị tiến trình tải khi dữ liệu đang được tải
+    );
   }
 }
