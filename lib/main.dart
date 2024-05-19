@@ -4,11 +4,18 @@ import 'package:mobile/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_database/firebase_database.dart';
+import './GetFromDB.dart';
+import 'package:mobile/firebase_options.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   _initializeNotifications();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    // for web deploy
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   // runApp(const MyApp());
   runApp(MultiProvider(
     providers: [ChangeNotifierProvider(create: (_) => Database())],
