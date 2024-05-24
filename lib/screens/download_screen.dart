@@ -102,46 +102,11 @@ class DownloadPage extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 16.0, bottom: 5.0, top: 20.0),
-                //   child: Row(
-                //     children: [
-                //       Container(
-                //         width: 25,
-                //         height: 25,
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(2),
-                //           image: const DecorationImage(
-                //               image: AssetImage(
-                //                   'assets/images/netflix-avatar.png')),
-                //         ),
-                //       ),
-                //       const SizedBox(
-                //         width: 15.0,
-                //       ),
-                //       const Text(
-                //         'Netflix Member',
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //           fontSize: 18.0,
-                //           fontWeight: FontWeight.w500,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: context.watch<Database>().contents.length,
-                  itemBuilder: (context, index) => DownloadMovieCard(
-                    movie: context.watch<Database>().contents[index],
-                  ),
-                ),
-              ],
+            child: ListView.builder(
+              itemCount: context.watch<Database>().contents.length,
+              itemBuilder: (context, index) => DownloadMovieCard(
+                movie: context.watch<Database>().contents[index],
+              ),
             ),
           ),
         ],
