@@ -21,7 +21,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-    List<Content> _contents = context.watch<Database>().content;
+    List<Content> _contents = context.watch<Database>().contents;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,

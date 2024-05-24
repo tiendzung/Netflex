@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobile/models/profile.dart';
 // import 'package:mobile/authentication/authentication.dart';
 import 'package:mobile/screens/screens.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, required this.profiles}) : super(key: key);
@@ -37,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       {
         'title': 'Help',
-        'function': () => () {},
+        'function': () => _launchURL(),
       },
       {
         'title': 'Sign Out',
@@ -51,6 +52,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       userEmail = user?.email ?? "Unknown User";
     });
+  }
+
+  Future<void> _launchURL() async {
+    const url = 'https://www.facebook.com/tiendzungg';
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Future<void> _signOut(BuildContext context) async {

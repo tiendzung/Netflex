@@ -16,6 +16,8 @@ class _MyHomePageState extends State<MyHomePage> {
   double _scrollOffset = 0.0;
   late ScrollController _scrollController;
   bool _isDataLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
+  bool _isUsersLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
+
 
   @override
   void initState() {
@@ -38,6 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
+
+  // Future<void> getAllUser() async {
+  //   await GetFromDB.getAllUser().then((users) {
+  //     context.read<Database>().addUser(users);
+  //     setState(() {
+  //       _isUsersLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
+  //     });
+  //   });
+  // }
+
 
   @override
   void dispose() {
@@ -68,21 +80,21 @@ class _MyHomePageState extends State<MyHomePage> {
               slivers: [
                 SliverToBoxAdapter(
                   child: ContentHeader(
-                    featuredContent: context.watch<Database>().content[4],
+                    featuredContent: context.watch<Database>().contents[4],
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: ContentList(
                     key: const PageStorageKey('myList'),
                     title: 'My List',
-                    contentList: context.watch<Database>().content,
+                    contentList: context.watch<Database>().contents,
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: ContentList(
                     key: const PageStorageKey('originals'),
                     title: 'Netflix Originals',
-                    contentList: context.watch<Database>().content,
+                    contentList: context.watch<Database>().contents,
                     isOriginals: true,
                   ),
                 ),
@@ -92,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ContentList(
                       key: const PageStorageKey('trending'),
                       title: 'Trending',
-                      contentList: context.watch<Database>().content,
+                      contentList: context.watch<Database>().contents,
                     ),
                   ),
                 )
