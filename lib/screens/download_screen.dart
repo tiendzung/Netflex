@@ -6,12 +6,33 @@ import 'package:provider/provider.dart';
 
 import '../Database.dart';
 import 'screens.dart';
+import 'package:mobile/models/all_user.dart';
 
-class DownloadPage extends StatelessWidget {
+class DownloadPage extends StatefulWidget {
   const DownloadPage({Key? key}) : super(key: key);
+
+  // final User user;
+  @override
+  _DownloadPageState createState() => _DownloadPageState();
+}
+
+class _DownloadPageState extends State<DownloadPage> {
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    final filmInList = context.watch<Database>().user.list;
+    final films = context.watch<Database>().contents.where((content) => filmInList[content.id] == true).toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -103,10 +124,14 @@ class DownloadPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: context.watch<Database>().contents.length,
-              itemBuilder: (context, index) => DownloadMovieCard(
-                movie: context.watch<Database>().contents[index],
-              ),
+              itemCount: context.watch<Database>().user.list.length,
+              // itemBuilder: (context, index) => DownloadMovieCard(
+              //   movie: context.watch<Database>().contents[index],
+              // ),
+
+              itemBuilder: (context, index) {
+                return DownloadMovieCard(movie: films[index]);
+              },
             ),
           ),
         ],

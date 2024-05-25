@@ -3,12 +3,12 @@ import 'package:mobile/models/models.dart';
 
 class Database extends ChangeNotifier {
   final List<Content> _contents = [];
-  final List<User> _users = [];
+  late User _user;
   bool _isContentsLoaded = false;
   bool _isUsersLoaded = false;
 
   List<Content> get contents => _contents;
-  List<User> get users => _users;
+  User get user => _user;
   bool get isContentsLoaded => _isContentsLoaded;
   bool get isUsersLoaded => _isUsersLoaded;
 
@@ -18,8 +18,9 @@ class Database extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addUser(User user) {
-    _users.add(user);
+  void addUser(List<User> users, String email) {
+    // users.forEach(print);
+    _user = users.firstWhere((user) => user.email == email);
     _isUsersLoaded = true;
     notifyListeners();
   }

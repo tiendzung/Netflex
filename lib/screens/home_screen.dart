@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/Database.dart';
 import 'package:mobile/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../GetFromDB.dart';
 
@@ -30,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     // Thực hiện tải dữ liệu khi initState được gọi
     getData();
+    getUser();
   }
 
   Future<void> getData() async {
@@ -50,6 +52,18 @@ class _MyHomePageState extends State<MyHomePage> {
   //   });
   // }
 
+  Future<void> getUser() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    await GetFromDB.getAllUser().then((users) {
+      String email = user?.email ?? "test@gmail.com";
+      // print(email);
+      context.read<Database>().addUser(users, email);
+      setState(() {
+        _isUsersLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -74,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
           scrollOffset: _scrollOffset,
         ),
       ),
-      body: _isDataLoaded // Kiểm tra xem dữ liệu đã được tải xong chưa
+      body: _isDataLoaded && _isUsersLoaded // Kiểm tra xem dữ liệu đã được tải xong chưa
           ? CustomScrollView(
               controller: _scrollController,
               slivers: [

@@ -47,22 +47,26 @@ class GetFromDB {
   }
 
   static Future<List<User>> getAllUser() async {
-    final res = await FirebaseDatabase.instance.ref('/list-user').get();
+    final res = await FirebaseDatabase.instance.ref('/list-users').get();
 
     final List<User> users = [];
 
-    Map<String, dynamic>.from(res.value as Map).forEach((key, value) async {
-      users.add(
-        User(
-          id: key,
-          email: value.email,
-          list: Map<String, bool>.from(value.list as Map<String, dynamic>),
-          rating: Map<String, int>.from(value.rating)
-        ),
-      );
-    });
+    if (res.value != null) {
+      Map<String, dynamic>.from(res.value as Map).forEach((key, value) {
+        users.add(
+          User(
+            id: key,
+            email: value['email'] as String,
+            list: Map<String, bool>.from(value['list'] as Map),
+            rating: Map<String, int>.from(
+              value['rating'].map((k, v) => MapEntry(k, int.parse(v))),
+            ),
+          ),
+        );
+      });
+    }
 
-    print("Length of data provide:" + users.length.toString());
+    print("Length of users provide: " + users.length.toString());
     return users;
   }
 }

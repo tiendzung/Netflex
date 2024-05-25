@@ -331,9 +331,9 @@ class _ButtonBar extends StatelessWidget {
   const _ButtonBar({Key? key, required this.item}) : super(key: key);
 
   void _showShareOptions(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
         return Container(
           color: Colors.black,
           child: Wrap(
