@@ -13,6 +13,7 @@ class Database extends ChangeNotifier {
   bool get isUsersLoaded => _isUsersLoaded;
 
   void addContents(List<Content> contents) {
+    _contents.clear();
     _contents.addAll(contents);
     _isContentsLoaded = true;
     notifyListeners();
