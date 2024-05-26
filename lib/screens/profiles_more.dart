@@ -50,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _getCurrentUserEmail() async {
     User? user = FirebaseAuth.instance.currentUser;
     setState(() {
-      userEmail = user?.email ?? "test@gmail.com";
+      userEmail = user?.email ?? "Unknown User";
     });
   }
 

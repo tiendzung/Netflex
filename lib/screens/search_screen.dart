@@ -15,14 +15,13 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  bool _isSearching = false;
   List<Content> searchResult = [];
+  bool _isSearching = false;
 
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-
-    List<Content> _contents = context.watch<Database>().contents;
+    List<Content> _contents = context.watch<Database>().content;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -64,26 +63,30 @@ class _SearchPageState extends State<SearchPage> {
               autofocus: true,
               cursorColor: Colors.white,
               onChanged: (value) {
+                // search from List<Content>
                 setState(() {
                   searchResult.clear();
-                  // print(searchResult.length);
-                  if (value.isNotEmpty) {
-                    _isSearching = true;
-                    // print(_contents.length);
-                    for (Content content in _contents) {
-                      print(content.name);
-                      if (content.name.toLowerCase().contains(value.toLowerCase())) {
-                        // print(content.name);
-                        searchResult.add(content);
-                      }
-                    }
-                  } else {
-                    _isSearching = false;
-                  }
-                  print(searchResult.length);
                 });
+                if (value.isNotEmpty) {
+                  setState(() {
+                    _isSearching = true;
+                  });
+                  // print(value);
+                  for (Content content in _contents) {
+                    print(content.name);
+                    if (content.name
+                        .toLowerCase()
+                        .contains(value.toLowerCase())) {
+                      // print(content.name);
+                      searchResult.add(content);
+                    }
+                  }
+                } else {
+                  setState(() {
+                    _isSearching = false;
+                  });
+                }
               },
-
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
@@ -145,7 +148,7 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                         ),
                       ),
-                ! searchResult.isNotEmpty
+                !_isSearching
                     ? ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
