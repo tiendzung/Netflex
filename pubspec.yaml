@@ -1,5 +1,5 @@
 name: mobile
-description: A new Flutter project.
+description: A smol app for watching your movie
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -53,6 +53,12 @@ dependencies:
   dio: ^4.0.0
   path_provider: ^2.0.1
   flutter_local_notifications: ^9.6.0
+  share: ^2.0.4
+  permission_handler:
+  table_calendar: ^3.0.0
+#  animated_button:
+
+
 
 
 #  video_player: ^0.10.11+2

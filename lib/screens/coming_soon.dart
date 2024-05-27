@@ -1,13 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mobile/assets.dart';
 import 'package:mobile/models/profile.dart';
 import 'package:mobile/widgets/vertical_icon_button.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 import 'screens.dart';
 
 class ComingSoon extends StatelessWidget {
-  const ComingSoon({Key? key}) : super(key: key);
+  late final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  ComingSoon({Key? key}) : super(key: key) {
+    flutterLocalNotificationsPlugin = initializeNotifications();
+  }
+
+  FlutterLocalNotificationsPlugin initializeNotifications() {
+    final FlutterLocalNotificationsPlugin plugin = FlutterLocalNotificationsPlugin();
+    tz.initializeTimeZones();
+    return plugin;
+  }
+
+  Future<void> _scheduleNotification() async {
+    // Tạo ra múi giờ cụ thể
+    final location = tz.getLocation('Asia/Ho_Chi_Minh');
+
+    // Tạo ra ngày cụ thể
+    final DateTime scheduledDate = DateTime(2024, 6, 12, 18, 48, 0); // 12h00
+
+    // Chuyển đổi thời gian sang múi giờ cụ thể
+    final scheduledTime = tz.TZDateTime(
+      location,
+      scheduledDate.year,
+      scheduledDate.month,
+      scheduledDate.day,
+      scheduledDate.hour,
+      scheduledDate.minute,
+      scheduledDate.second,
+    );
+
+    // Khởi tạo một Notification
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails(
+      'my_netflex_notification_channel', // ID duy nhất cho kênh thông báo của bạn
+      'Netflex Cooming Soon Notification', // Tên của kênh thông báo
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: '@mipmap/netflix_logo', // Đường dẫn đến hình ảnh logo Netflix
+    );
+    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    // Lập lịch thông báo
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      0, // ID thông báo duy nhất
+      'Avatar', // Tiêu đề thông báo
+      "Season 1 coming August 05", // Nội dung thông báo
+      scheduledTime, // Thời gian hiển thị thông báo
+      platformChannelSpecifics,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+      UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +183,7 @@ class ComingSoon extends StatelessWidget {
                     VerticalIconButton(
                       icon: Icons.notifications,
                       title: 'Remind Me',
-                      onTap: () => print('Remind Me'),
+                      onTap: _scheduleNotification,
                     ),
                     const SizedBox(
                       width: 10.0,
@@ -150,7 +207,7 @@ class ComingSoon extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
-                  'Season 1 coming April 12',
+                  'Season 1 coming August 05',
                   style: TextStyle(
                     fontSize: 12.0,
                     color: Colors.grey,

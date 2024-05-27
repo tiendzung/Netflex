@@ -1,36 +1,27 @@
 {
   "project_info": {
-    "project_number": "821877184633",
-    "project_id": "netflix-8b506",
-    "storage_bucket": "netflix-8b506.appspot.com"
+    "project_number": "618571096903",
+    "firebase_url": "https://mobile-dzung-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mobile-dzung",
+    "storage_bucket": "mobile-dzung.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:821877184633:android:3de06373112ec92bec5ca8",
+        "mobilesdk_app_id": "1:618571096903:android:f78765ec5f1b06ac19a262",
         "android_client_info": {
           "package_name": "com.example.mobile"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "821877184633-aok8j4oaofjmb8lt9r2c1nammf2jb0h5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCbpgaNR_PIH9XXWSKzraLrmKo6xqEkM9A"
+          "current_key": "AIzaSyCfEnZjtb4cfYoNlQKs_H9EZy8FwaOSF-I"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "821877184633-aok8j4oaofjmb8lt9r2c1nammf2jb0h5.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

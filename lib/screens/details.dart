@@ -3,6 +3,12 @@ import 'package:mobile/screens/screens.dart';
 import '../models/models.dart';
 import '../widgets/widgets.dart';
 
+import 'package:path_provider/path_provider.dart';
+import 'package:dio/dio.dart';
+import 'dart:io';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:share/share.dart';
+
 class Detail extends StatelessWidget {
   final Content item;
 
@@ -13,7 +19,7 @@ class Detail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        // leading: const BackButton(),
+        automaticallyImplyLeading: true,
         actions: [
           IconButton(
             onPressed: () {
@@ -56,14 +62,13 @@ class Detail extends StatelessWidget {
             height: 250.0,
             decoration: BoxDecoration(
               image: DecorationImage(
-                // image: AssetImage(item.imageUrl),
                 image: NetworkImage(item.titleImageUrl),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0), // trai phai
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -134,7 +139,7 @@ class Detail extends StatelessWidget {
                     ),
                   ),
                 ),
-                const _ButtonBar(),
+                _ButtonBar(item: item), // Pass item to _ButtonBar
               ],
             ),
           ),
@@ -152,7 +157,8 @@ class Detail extends StatelessWidget {
   }
 }
 
-class _actionButton extends StatelessWidget {
+
+class _actionButton extends StatefulWidget {
   final Content item;
   final bool isDownload;
 
@@ -160,33 +166,148 @@ class _actionButton extends StatelessWidget {
       : super(key: key);
 
   @override
+  __actionButtonState createState() => __actionButtonState();
+}
+
+class __actionButtonState extends State<_actionButton> {
+  bool isDownloading = false;
+  double downloadProgress = 0.0;
+  bool fileExists = false;
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  Future<void> _showNotification(String filePath) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'download_channel',
+      'Downloads',
+      channelDescription: 'Channel for download notifications',
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: false,
+    );
+
+    const NotificationDetails platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+    );
+
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'Download Complete',
+      'The file has been downloaded to $filePath',
+      platformChannelSpecifics,
+      payload: filePath,
+    );
+  }
+
+  String _sanitizeFileName(String fileName) {
+    // Loại bỏ dấu cách và các ký tự đặc biệt, chỉ giữ lại các chữ cái thường
+    return (fileName + 'n').replaceAll(RegExp(r'[^\w]'), '').toLowerCase();
+  }
+
+  Future<void> downloadMovie(String url, String fileName) async {
+    setState(() {
+      isDownloading = true;
+      downloadProgress = 0.0;
+    });
+
+    try {
+      Directory? externalDir = await getExternalStorageDirectory();
+      String downloadsPath = '/storage/emulated/0/Download'; // Android-specific Download folder
+      String sanitizedFileName = _sanitizeFileName(fileName);
+      String savePath = '$downloadsPath/$sanitizedFileName.mp4';
+
+      Dio dio = Dio();
+      await dio.download(
+        url,
+        savePath,
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            setState(() {
+              downloadProgress = received / total;
+            });
+          }
+        },
+      );
+
+      setState(() {
+        isDownloading = false;
+        fileExists = true;
+      });
+
+      await _showNotification(savePath);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Download completed: $savePath')),
+      );
+    } catch (e) {
+      setState(() {
+        isDownloading = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Download failed: $e')),
+      );
+    }
+  }
+
+  Future<void> checkFileExists(String fileName) async {
+    Directory? externalDir = await getExternalStorageDirectory();
+    String downloadsPath = '/storage/emulated/0/Download'; // Android-specific Download folder
+    String filePath = '$downloadsPath/$fileName';
+
+    setState(() {
+      fileExists = File(filePath).existsSync();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkFileExists('${widget.item.name}.mp4');
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     return SizedBox(
       width: screenSize.width,
       child: FlatButton.icon(
-        onPressed: () => !isDownload
-            ? Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => VideoApp(
-                    movieUrl: item.videoUrl,
-                  ),
+        onPressed: () {
+          if (!widget.isDownload) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => VideoApp(
+                  movieUrl: widget.item.videoUrl,
                 ),
-              )
-            : null,
-        color: isDownload == true ? Colors.black26 : Colors.white,
-        icon: isDownload == true
-            ? const Icon(
-                Icons.download,
-                size: 30.0,
-                color: Colors.white,
-              )
+              ),
+            );
+          } else if (!isDownloading && !fileExists) {
+            downloadMovie(widget.item.videoUrl, '${widget.item.name}.mp4');
+          }
+        },
+        color: widget.isDownload ? Colors.black26 : Colors.white,
+        icon: widget.isDownload
+            ? (isDownloading
+                ? CircularProgressIndicator(value: downloadProgress)
+                : (fileExists
+                    ? const Icon(
+                        Icons.check,
+                        size: 30.0,
+                        color: Colors.white,
+                      )
+                    : const Icon(
+                        Icons.download,
+                        size: 30.0,
+                        color: Colors.white,
+                      )))
             : const Icon(
                 Icons.play_arrow,
                 size: 30.0,
               ),
-        label: isDownload == true
+        label: widget.isDownload
             ? const Text(
                 'Download',
                 style: TextStyle(
@@ -203,8 +324,50 @@ class _actionButton extends StatelessWidget {
   }
 }
 
+
+
 class _ButtonBar extends StatelessWidget {
-  const _ButtonBar({Key? key}) : super(key: key);
+  final Content item;
+
+  const _ButtonBar({Key? key, required this.item}) : super(key: key);
+
+  void _showShareOptions(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+        return Container(
+          color: Colors.black,
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.share, color: Colors.white),
+                title: const Text('Share via', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Share.share('Check out this movie: ${item.name}\n\n${item.description}\n\n${item.videoUrl}');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.copy, color: Colors.white),
+                title: const Text('Copy link', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  // Implement copy link functionality
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.close, color: Colors.white),
+                title: const Text('Cancel', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -213,14 +376,13 @@ class _ButtonBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          VerticalIconButton(
-              icon: Icons.add, title: 'List', onTap: () => print('My list')),
+          AddListButton(movie: item),
           VerticalIconButton(
               icon: Icons.thumb_up,
-              title: 'List',
+              title: 'Like',
               onTap: () => print('My list')),
           VerticalIconButton(
-              icon: Icons.share, title: 'Share', onTap: () => print('Share')),
+              icon: Icons.share, title: 'Share', onTap: () => _showShareOptions(context)),
         ],
       ),
     );

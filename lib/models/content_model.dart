@@ -1,6 +1,6 @@
 
 class Content {
-  // String? id;
+  final String id;
   final String name;
   final String imageUrl;
   final String titleImageUrl;
@@ -12,7 +12,7 @@ class Content {
   // final Color color;
 
   const Content({
-    // this.id,
+    required this.id,
     required this.name,
     required this.imageUrl,
     required this.titleImageUrl,

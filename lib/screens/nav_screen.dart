@@ -13,7 +13,7 @@ class _NavScreenState extends State<NavScreen> {
   final List<Widget> _screens = [
     const MyHomePage(key: PageStorageKey('homeScreen')),
     // SearchPage(),
-    const ComingSoon(),
+    ComingSoon(),
     // const Detail(),
     const DownloadPage(),
     // LoginScreen(),

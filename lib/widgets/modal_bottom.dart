@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/widgets/widgets.dart';
 import '../models/content_model.dart';
 import '../screens/screens.dart';
+import 'package:share/share.dart';
 
 class ModalBottomInfo extends StatelessWidget {
   final Content item;
@@ -140,6 +141,44 @@ class _ButtonBar extends StatelessWidget {
   final Content item;
   const _ButtonBar({Key? key, required this.item}) : super(key: key);
 
+  void _showShareOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          color: Colors.black,
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.share, color: Colors.white),
+                title: const Text('Share via', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Share.share('Check out this movie: ${item.name}\n\n${item.description}\n\n${item.videoUrl}');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.copy, color: Colors.white),
+                title: const Text('Copy link', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  // Implement copy link functionality
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.close, color: Colors.white),
+                title: const Text('Cancel', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -165,7 +204,7 @@ class _ButtonBar extends StatelessWidget {
               onTap: () => print('My list')),
           AddListButton(movie: item),
           VerticalIconButton(
-              icon: Icons.share, title: 'Share', onTap: () => print('Share')),
+              icon: Icons.share, title: 'Share', onTap: () => _showShareOptions(context)),
         ],
       ),
     );

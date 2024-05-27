@@ -6,12 +6,50 @@ import 'package:provider/provider.dart';
 
 import '../Database.dart';
 import 'screens.dart';
+import 'package:mobile/models/all_user.dart';
 
-class DownloadPage extends StatelessWidget {
+class DownloadPage extends StatefulWidget {
   const DownloadPage({Key? key}) : super(key: key);
+
+  // final User user;
+  @override
+  _DownloadPageState createState() => _DownloadPageState();
+}
+
+class _DownloadPageState extends State<DownloadPage> {
+
+  bool _isDataLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
+  bool _isUsersLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+    getUser();
+  }
+
+  Future<void> getData() async {
+    context.read<Database>().getContents();
+    setState(() {
+      _isDataLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
+    });
+  }
+
+  Future<void> getUser() async {
+    context.read<Database>().getUser();
+    setState(() {
+      _isUsersLoaded = true;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    final filmInList = context.watch<Database>().user.list;
+    final films = context.watch<Database>().contents.where((content) => filmInList[content.id] == true).toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -102,46 +140,15 @@ class DownloadPage extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 16.0, bottom: 5.0, top: 20.0),
-                //   child: Row(
-                //     children: [
-                //       Container(
-                //         width: 25,
-                //         height: 25,
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(2),
-                //           image: const DecorationImage(
-                //               image: AssetImage(
-                //                   'assets/images/netflix-avatar.png')),
-                //         ),
-                //       ),
-                //       const SizedBox(
-                //         width: 15.0,
-                //       ),
-                //       const Text(
-                //         'Netflix Member',
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //           fontSize: 18.0,
-                //           fontWeight: FontWeight.w500,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: context.watch<Database>().content.length,
-                  itemBuilder: (context, index) => DownloadMovieCard(
-                    movie: context.watch<Database>().content[index],
-                  ),
-                ),
-              ],
+            child: ListView.builder(
+              itemCount: context.watch<Database>().user.list.length,
+              // itemBuilder: (context, index) => DownloadMovieCard(
+              //   movie: context.watch<Database>().contents[index],
+              // ),
+
+              itemBuilder: (context, index) {
+                return DownloadMovieCard(movie: films[index]);
+              },
             ),
           ),
         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/Database.dart';
 import 'package:mobile/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../GetFromDB.dart';
 
@@ -16,6 +17,8 @@ class _MyHomePageState extends State<MyHomePage> {
   double _scrollOffset = 0.0;
   late ScrollController _scrollController;
   bool _isDataLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
+  bool _isUsersLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
+
 
   @override
   void initState() {
@@ -28,16 +31,32 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     // Thực hiện tải dữ liệu khi initState được gọi
     getData();
+    getUser();
   }
 
   Future<void> getData() async {
-    await GetFromDB.getContents().then((contents) {
-      context.read<Database>().addContents(contents);
+      context.read<Database>().getContents();
       setState(() {
         _isDataLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
       });
+  }
+
+  Future<void> getUser() async {
+    context.read<Database>().getUser();
+    setState(() {
+      _isUsersLoaded = true;
     });
   }
+
+  // Future<void> getAllUser() async {
+  //   await GetFromDB.getAllUser().then((users) {
+  //     context.read<Database>().addUser(users);
+  //     setState(() {
+  //       _isUsersLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
+  //     });
+  //   });
+  // }
+
 
   @override
   void dispose() {
@@ -62,27 +81,27 @@ class _MyHomePageState extends State<MyHomePage> {
           scrollOffset: _scrollOffset,
         ),
       ),
-      body: _isDataLoaded // Kiểm tra xem dữ liệu đã được tải xong chưa
+      body: _isDataLoaded && _isUsersLoaded // Kiểm tra xem dữ liệu đã được tải xong chưa
           ? CustomScrollView(
               controller: _scrollController,
               slivers: [
                 SliverToBoxAdapter(
                   child: ContentHeader(
-                    featuredContent: context.watch<Database>().content[4],
+                    featuredContent: context.watch<Database>().contents[4],
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: ContentList(
                     key: const PageStorageKey('myList'),
                     title: 'My List',
-                    contentList: context.watch<Database>().content,
+                    contentList: context.watch<Database>().contents,
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: ContentList(
                     key: const PageStorageKey('originals'),
                     title: 'Netflix Originals',
-                    contentList: context.watch<Database>().content,
+                    contentList: context.watch<Database>().contents,
                     isOriginals: true,
                   ),
                 ),
@@ -92,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ContentList(
                       key: const PageStorageKey('trending'),
                       title: 'Trending',
-                      contentList: context.watch<Database>().content,
+                      contentList: context.watch<Database>().contents,
                     ),
                   ),
                 )
