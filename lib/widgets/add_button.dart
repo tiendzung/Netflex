@@ -92,6 +92,9 @@ class _AddListButtonState extends State<AddListButton> {
       setState(() {
         myList = userMap.map((key, value) => MapEntry(key, value == true));
         _isInList = AddListButton.checkInList(myList, widget.movie);
+        if (myList.isEmpty) {
+          myList['film1'] = false;
+        }
       });
     }
   }
@@ -124,6 +127,9 @@ class _AddListButtonState extends State<AddListButton> {
         onTap: () async {
           setState(() {
             myList.remove(widget.movie.id);
+            if (myList.isEmpty) {
+              myList['film1'] = false;
+            }
             _isInList = false;
           });
           await _updateUserList();

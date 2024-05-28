@@ -166,7 +166,7 @@ class ComingSoon extends StatelessWidget {
             height: 190,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(Assets.atla),
+                image: AssetImage(Assets.strangerThings),
                 fit: BoxFit.cover,
               ),
             ),
@@ -177,7 +177,17 @@ class ComingSoon extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Image(image: AssetImage(Assets.atlaTitle)),
+                // const Image(image: AssetImage(Assets.atlaTitle)),
+                Container(
+                  width: 200,
+                  height: 85,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(Assets.strangerThingsTitle),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
                 Row(
                   children: [
                     VerticalIconButton(
@@ -217,7 +227,7 @@ class ComingSoon extends StatelessWidget {
                   height: 10.0,
                 ),
                 Text(
-                  'Avatar',
+                  'Stranger Things',
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.white,
@@ -225,7 +235,7 @@ class ComingSoon extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "sintelContent.description",
+                  "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.",
                   style: TextStyle(
                     fontSize: 12.0,
                     color: Colors.grey,

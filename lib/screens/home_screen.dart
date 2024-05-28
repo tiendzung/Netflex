@@ -35,14 +35,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> getData() async {
-      context.read<Database>().getContents();
+      await context.read<Database>().getContents();
       setState(() {
         _isDataLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
       });
   }
 
   Future<void> getUser() async {
-    context.read<Database>().getUser();
+    await context.read<Database>().getUser();
     setState(() {
       _isUsersLoaded = true;
     });

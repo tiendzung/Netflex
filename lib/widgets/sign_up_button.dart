@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'widgets.dart';
@@ -37,13 +38,24 @@ class _SignUpButtonState extends State<SignUpButton> {
           onPressed: widget.status
               ? () async {
                   try {
-                    final credential =
-                        await _auth.createUserWithEmailAndPassword(
-                            email: widget.email, password: widget.password);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NavScreen()));
+                    final credential = await _auth.createUserWithEmailAndPassword(email: widget.email, password: widget.password);
+                    final user = _auth.currentUser;
+                    if (user != null) {
+                      final userRef = FirebaseDatabase.instance.reference().child('list-users').child(user.uid);
+
+                      // Tạo một Map chứa thông tin của người dùng mới
+                      final userData = {
+                        'email': widget.email,
+                        'list': {'film1': false},
+                        'rating': {'film0': 5},
+                      };
+
+                      // Cập nhật thông tin của người dùng mới lên database
+                      await userRef.set(userData);
+                    }
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const NavScreen()));
+
+
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'email-already-in-use') {
                       alertDialogSignUp(context,

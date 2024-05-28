@@ -95,7 +95,7 @@ class ModalBottomInfo extends StatelessWidget {
             color: const Color(0xff292929),
             child: InkWell(
               onTap: () => {
-                Navigator.of(context).pop(),
+                // Navigator.of(context).pop(),
                 Navigator.push(
                   context,
                   MaterialPageRoute(

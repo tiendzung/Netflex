@@ -30,14 +30,14 @@ class _DownloadPageState extends State<DownloadPage> {
   }
 
   Future<void> getData() async {
-    context.read<Database>().getContents();
+    await context.read<Database>().getContents();
     setState(() {
       _isDataLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
     });
   }
 
   Future<void> getUser() async {
-    context.read<Database>().getUser();
+    await context.read<Database>().getUser();
     setState(() {
       _isUsersLoaded = true;
     });
@@ -139,9 +139,10 @@ class _DownloadPageState extends State<DownloadPage> {
               ],
             ),
           ),
+
           Expanded(
             child: ListView.builder(
-              itemCount: context.watch<Database>().user.list.length,
+              itemCount: context.watch<Database>().user.list.values.where((value) => value == true).length,
               // itemBuilder: (context, index) => DownloadMovieCard(
               //   movie: context.watch<Database>().contents[index],
               // ),

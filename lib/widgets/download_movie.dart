@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:mobile/screens/details.dart';
 
 class DownloadMovieCard extends StatefulWidget {
   const DownloadMovieCard({Key? key, required this.movie}) : super(key: key);
@@ -124,16 +125,29 @@ class _DownloadMovieCardState extends State<DownloadMovieCard> {
       ),
       child: Row(
         children: [
-          Container(
-            width: 140,
-            height: 75,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              image: DecorationImage(
-                image: NetworkImage(widget.movie.imageUrl),
-                fit: BoxFit.cover,
+          InkWell(
+              child: Container(
+                width: 140,
+                height: 75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  image: DecorationImage(
+                    image: NetworkImage(widget.movie.imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
+              onTap: () => {
+                // Navigator.of(context).pop(),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Detail(
+                      item: widget.movie,
+                    ),
+                  ),
+                ),
+              },
           ),
           Expanded(
             child: Padding(

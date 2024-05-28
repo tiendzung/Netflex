@@ -53,7 +53,7 @@ class Database extends ChangeNotifier {
         email: userMap['email'] as String,
         list: Map<String, bool>.from(userMap['list'] as Map),
         rating: Map<String, int>.from(
-          userMap['rating'].map((k, v) => MapEntry(k, int.parse(v))),
+          userMap['rating'].map((k, v) => MapEntry(k, v)),
         ),
       );
 

@@ -29,6 +29,7 @@ class Assets {
   static const String htsdof = '${_images}htsdof.jpg';
   static const String kakegurui = '${_images}kakegurui.jpg';
   static const String strangerThings = '${_images}stranger_things.jpg';
+  static const String strangerThingsTitle = '${_images}StrangerThingsTitleCard.jpg';
   static const String teotfw = '${_images}teotfw.jpg';
   static const String thirteenReasonsWhy = '${_images}thirteen_reasons_why.jpg';
   static const String tigerKing = '${_images}tiger_king.jpg';
