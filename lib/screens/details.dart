@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/screens.dart';
+import 'package:provider/provider.dart';
+import '../Database.dart';
 import '../models/models.dart';
+import '../widgets/rating_bar.dart';
 import '../widgets/widgets.dart';
 
 import 'package:path_provider/path_provider.dart';
@@ -255,7 +258,8 @@ class __actionButtonState extends State<_actionButton> {
   Future<void> checkFileExists(String fileName) async {
     Directory? externalDir = await getExternalStorageDirectory();
     String downloadsPath = '/storage/emulated/0/Download'; // Android-specific Download folder
-    String filePath = '$downloadsPath/$fileName';
+    String sanitizedFileName = _sanitizeFileName(fileName);
+    String filePath = '$downloadsPath/$sanitizedFileName.mp4';
 
     setState(() {
       fileExists = File(filePath).existsSync();
@@ -265,7 +269,7 @@ class __actionButtonState extends State<_actionButton> {
   @override
   void initState() {
     super.initState();
-    checkFileExists('${widget.item.name}.mp4');
+    checkFileExists(widget.item.name);
   }
 
   @override
@@ -325,16 +329,123 @@ class __actionButtonState extends State<_actionButton> {
 }
 
 
+// class _ButtonBar extends StatelessWidget {
+//   final Content item;
+//
+//   const _ButtonBar({Key? key, required this.item}) : super(key: key);
+//
+//   void _showShareOptions(BuildContext context) {
+//       showModalBottomSheet(
+//         context: context,
+//         builder: (BuildContext context) {
+//         return Container(
+//           color: Colors.black,
+//           child: Wrap(
+//             children: <Widget>[
+//               ListTile(
+//                 leading: const Icon(Icons.share, color: Colors.white),
+//                 title: const Text('Share via', style: TextStyle(color: Colors.white)),
+//                 onTap: () {
+//                   Share.share('Check out this movie: ${item.name}\n\n${item.description}\n\n${item.videoUrl}');
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//               ListTile(
+//                 leading: const Icon(Icons.copy, color: Colors.white),
+//                 title: const Text('Copy link', style: TextStyle(color: Colors.white)),
+//                 onTap: () {
+//                   // Implement copy link functionality
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//               ListTile(
+//                 leading: const Icon(Icons.close, color: Colors.white),
+//                 title: const Text('Cancel', style: TextStyle(color: Colors.white)),
+//                 onTap: () {
+//                   Navigator.pop(context);
+//                 },
+//               ),
+//             ],
+//           ),
+//         );
+//       },
+//     );
+//   }
+//
+//   void _rateMovie(int rating) {
+//
+//   }
+//   //
+//   // final userRating = context.watch<Database>().user.rating;
+//   //
+//   String _getRateScore() {
+//     String res = "Rating"; //(userRating[item.id].toString() != "null") ? 'You rated: ' + userRating[item.id].toString() : "Rating";
+//
+//     return res;
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final userRating = context.watch<Database>().user.rating;
+//
+//     String _getRateScore() {
+//       String res = (userRating[item.id].toString() != "null") ? 'You rated: ' + userRating[item.id].toString() : "Rating";
+//
+//       return res;
+//     }
+//
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 20.0),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         children: [
+//           AddListButton(movie: item),
+//           VerticalIconButton(
+//             icon: Icons.star,
+//             title: _getRateScore(),
+//             onTap: () {
+//               // Hiển thị hộp thoại đánh giá bộ phim
+//               showDialog(
+//                 context: context,
+//                 builder: (context) => AlertDialog(
+//                   title: Text('Rate ${item.name}'),
+//                   content: RatingBar(
+//                     onRatingSelected: _rateMovie,
+//                   ),
+//                 ),
+//               );
+//             },
+//           ),
+//           VerticalIconButton(
+//               icon: Icons.share, title: 'Share', onTap: () => _showShareOptions(context)),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-class _ButtonBar extends StatelessWidget {
+class _ButtonBar extends StatefulWidget {
   final Content item;
 
   const _ButtonBar({Key? key, required this.item}) : super(key: key);
 
+  @override
+  State<_ButtonBar> createState() => _ButtonBarState();
+}
+
+class _ButtonBarState extends State<_ButtonBar> {
+  late Map<String, int> userRating;
+
+  @override
+  void initState() {
+    super.initState();
+    userRating = context.read<Database>().user.rating;
+  }
+
   void _showShareOptions(BuildContext context) {
-      showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
         return Container(
           color: Colors.black,
           child: Wrap(
@@ -343,7 +454,7 @@ class _ButtonBar extends StatelessWidget {
                 leading: const Icon(Icons.share, color: Colors.white),
                 title: const Text('Share via', style: TextStyle(color: Colors.white)),
                 onTap: () {
-                  Share.share('Check out this movie: ${item.name}\n\n${item.description}\n\n${item.videoUrl}');
+                  Share.share('Check out this movie: ${widget.item.name}\n\n${widget.item.description}\n\n${widget.item.videoUrl}');
                   Navigator.pop(context);
                 },
               ),
@@ -369,6 +480,15 @@ class _ButtonBar extends StatelessWidget {
     );
   }
 
+  void _rateMovie(int rating) {
+    // Implement your movie rating logic
+  }
+
+  String _getRateScore() {
+    String res = "Rating";//(userRating[widget.item.id].toString() != "null") ? 'You rated: ' + userRating[widget.item.id].toString() : "Rating";
+    return res;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -376,13 +496,27 @@ class _ButtonBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          AddListButton(movie: item),
+          AddListButton(movie: widget.item),
           VerticalIconButton(
-              icon: Icons.thumb_up,
-              title: 'Like',
-              onTap: () => print('My list')),
+            icon: Icons.star,
+            title: _getRateScore(),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text('Rate ${widget.item.name}'),
+                  content: RatingBar(
+                    onRatingSelected: _rateMovie,
+                  ),
+                ),
+              );
+            },
+          ),
           VerticalIconButton(
-              icon: Icons.share, title: 'Share', onTap: () => _showShareOptions(context)),
+            icon: Icons.share,
+            title: 'Share',
+            onTap: () => _showShareOptions(context),
+          ),
         ],
       ),
     );

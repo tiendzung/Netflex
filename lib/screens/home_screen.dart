@@ -92,8 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 SliverToBoxAdapter(
                   child: ContentList(
-                    key: const PageStorageKey('myList'),
-                    title: 'My List',
+                    key: const PageStorageKey('recommendedForYou'),
+                    title: 'Recommended For You',
                     contentList: context.watch<Database>().contents,
                   ),
                 ),
