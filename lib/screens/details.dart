@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/screens.dart';
 import 'package:provider/provider.dart';
@@ -434,12 +435,14 @@ class _ButtonBar extends StatefulWidget {
 }
 
 class _ButtonBarState extends State<_ButtonBar> {
-  late Map<String, int> userRating;
+  late User user = context.read<Database>().user;
+  late Map<String, int> userRating = context.read<Database>().user.rating;
+  final databaseReference = FirebaseDatabase.instance.reference();
+
 
   @override
   void initState() {
     super.initState();
-    userRating = context.read<Database>().user.rating;
   }
 
   void _showShareOptions(BuildContext context) {
@@ -480,12 +483,46 @@ class _ButtonBarState extends State<_ButtonBar> {
     );
   }
 
-  void _rateMovie(int rating) {
-    // Implement your movie rating logic
+  Future<void> _rateMovie(int rating) async {
+    final String userId = user.id;
+    final String movieId = widget.item.id;
+    // userRating = user.rating;
+    final int currentRating = userRating[movieId] ?? 0;
+
+    // Nếu đánh giá mới bằng đánh giá hiện tại, không cần cập nhật
+    if (currentRating == rating) return;
+
+    // Cập nhật đánh giá cho bộ phim trong thông tin người dùng
+    final Map<String, int> updatedRating = {...userRating, movieId: rating};
+
+    // Cập nhật thông tin người dùng trong cơ sở dữ liệu Firebase
+    try {
+      // await context.read<Database>().updateUserRating(userId, updatedRating);
+      await databaseReference.child('list-users/$userId/rating').set(updatedRating);
+      context.read<Database>().updateUserRating(updatedRating);
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Rating for ${widget.item.name} updated successfully')),
+      // );
+
+      // Đóng Dialog sau khi cập nhật thành công
+      Navigator.of(context).pop();
+
+      setState(() {
+        userRating = updatedRating;
+      });
+
+      // print("OKKKKKKKKKK");
+    } catch (e) {
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Failed to update rating for ${widget.item.name}: $e')),
+      // );
+      // print("FAILEDDDDDD :(((((");
+    }
   }
 
   String _getRateScore() {
-    String res = "Rating";//(userRating[widget.item.id].toString() != "null") ? 'You rated: ' + userRating[widget.item.id].toString() : "Rating";
+    String res = (userRating[widget.item.id].toString() != "null") ? 'You rated: ' + userRating[widget.item.id].toString() : "Rating";
+    // print(userRating[widget.item.id].toString());
     return res;
   }
 

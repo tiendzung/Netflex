@@ -15,20 +15,6 @@ class Database extends ChangeNotifier {
   bool get isContentsLoaded => _isContentsLoaded;
   bool get isUsersLoaded => _isUsersLoaded;
 
-  // void addContents(List<Content> contents) {
-  //   _contents.clear();
-  //   _contents.addAll(contents);
-  //   _isContentsLoaded = true;
-  //   notifyListeners();
-  // }
-
-  // void addUser(List<User> users, String email) {
-  //   // users.forEach(print);
-  //   _user = users.firstWhere((user) => user.email == email);
-  //   _isUsersLoaded = true;
-  //   notifyListeners();
-  // }
-
   Future<void> getContents() async {
     await GetFromDB.getContents().then((contents) {
       _contents.clear();
@@ -62,6 +48,10 @@ class Database extends ChangeNotifier {
     } catch (error) {
       print('Error fetching user data: $error');
     }
+  }
+
+  void updateUserRating(Map<String, int> updatedRating) {
+    user.rating = updatedRating;
   }
 
 }
