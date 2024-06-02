@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(builder: (context) => const SignUpScreen()))
       },
       child: const Text(
-        'New to Netflix? Sign up now.',
+        'New to Netflex? Sign up now.',
         style: TextStyle(
           color: Colors.white,
           fontSize: 17,

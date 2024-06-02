@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late ScrollController _scrollController;
   bool _isDataLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
   bool _isUsersLoaded = false; // Biến bool để kiểm tra trạng thái dữ liệu đã được tải
-
+  bool _isRecommendedContentLoaded = false;
 
   @override
   void initState() {
@@ -31,14 +31,16 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     // Thực hiện tải dữ liệu khi initState được gọi
     getData();
+    getRecommendedContent();
     getUser();
   }
 
   Future<void> getData() async {
-      await context.read<Database>().getContents();
-      setState(() {
-        _isDataLoaded = true; // Đặt trạng thái dữ liệu đã được tải xong thành true
-      });
+    await context.read<Database>().getContents();
+    setState(() {
+      _isDataLoaded =
+      true; // Đặt trạng thái dữ liệu đã được tải xong thành true
+    });
   }
 
   Future<void> getUser() async {
@@ -47,6 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
       _isUsersLoaded = true;
     });
   }
+
+  Future<void> getRecommendedContent() async {
+    await context.read<Database>().getRecommendedContent();
+    setState(() {
+      _isRecommendedContentLoaded = true;
+    });
+  }
+
 
   // Future<void> getAllUser() async {
   //   await GetFromDB.getAllUser().then((users) {
@@ -81,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           scrollOffset: _scrollOffset,
         ),
       ),
-      body: _isDataLoaded && _isUsersLoaded // Kiểm tra xem dữ liệu đã được tải xong chưa
+      body: _isDataLoaded && _isUsersLoaded && _isRecommendedContentLoaded // Kiểm tra xem dữ liệu đã được tải xong chưa
           ? CustomScrollView(
               controller: _scrollController,
               slivers: [
@@ -94,14 +104,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ContentList(
                     key: const PageStorageKey('recommendedForYou'),
                     title: 'Recommended For You',
-                    contentList: context.watch<Database>().contents,
+                    contentList: context.watch<Database>().recommendedContent,
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: ContentList(
                     key: const PageStorageKey('originals'),
                     title: 'Netflix Originals',
-                    contentList: context.watch<Database>().contents,
+                    contentList: context.watch<Database>().contents.reversed.toList(),
                     isOriginals: true,
                   ),
                 ),
@@ -111,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ContentList(
                       key: const PageStorageKey('trending'),
                       title: 'Trending',
-                      contentList: context.watch<Database>().contents,
+                      contentList: List.from(context.watch<Database>().contents)..sort((a, b) => b.getAverateRating().compareTo(a.getAverateRating()))
                     ),
                   ),
                 )

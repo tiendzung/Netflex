@@ -115,6 +115,32 @@ class _DownloadMovieCardState extends State<DownloadMovieCard> {
     checkFileExists(widget.movie.name);
   }
 
+  Widget buildDownloadButton() {
+    if (isDownloading) {
+      return CircularProgressIndicator(value: downloadProgress);
+    } else if (fileExists) {
+      return IconButton(
+        icon: const Icon(
+          Icons.check,
+          color: Colors.white,
+          size: 20,
+        ),
+        onPressed: () {},
+      );
+    } else {
+      return IconButton(
+        icon: const Icon(
+          Icons.download,
+          color: Colors.white,
+          size: 20,
+        ),
+        onPressed: () {
+          downloadMovie(widget.movie.videoUrl, widget.movie.name);
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -161,24 +187,7 @@ class _DownloadMovieCardState extends State<DownloadMovieCard> {
               ),
             ),
           ),
-          isDownloading
-              ? CircularProgressIndicator(value: downloadProgress)
-              : fileExists
-              ? const Icon(
-            Icons.check,
-            color: Colors.white,
-            size: 20,
-          )
-              : IconButton(
-            icon: const Icon(
-              Icons.download,
-              color: Colors.white,
-              size: 20,
-            ),
-            onPressed: () {
-              downloadMovie(widget.movie.videoUrl, widget.movie.name);
-            },
-          ),
+          buildDownloadButton(),
         ],
       ),
     );

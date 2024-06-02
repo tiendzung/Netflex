@@ -60,7 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           builder: (context) => const LoginScreen()))
                 },
                 child: const Text(
-                  "SIGN IN",
+                  " ",
                   style: TextStyle(color: Colors.white70),
                 ),
               ),

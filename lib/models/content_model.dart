@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 class Content {
   final String id;
   final String name;
@@ -9,6 +11,7 @@ class Content {
   final String ageLimit;
   final String director;
   final String releaseYear;
+  final Map<String, int> rating;
   // final Color color;
 
   const Content({
@@ -21,6 +24,13 @@ class Content {
     required this.ageLimit,
     required this.director,
     required this.releaseYear,
+    required this.rating
     // required this.color,
   });
+
+  double getAverateRating() {
+      int total = rating.values.reduce((sum, value) => sum + value);
+      double average = total / rating.length;
+      return average;
+  }
 }

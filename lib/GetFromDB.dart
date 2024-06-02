@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:mobile/models/models.dart';
 
@@ -39,6 +41,9 @@ class GetFromDB {
           releaseYear: value['releaseYear'],
           ageLimit: value['ageLimit'],
           director: value['director'],
+          rating: Map<String, int>.from(
+                    value['rating'].map((k, v) => MapEntry(k, v)),
+                  ),
         ),
       );
     });
@@ -60,7 +65,7 @@ class GetFromDB {
             email: value['email'] as String,
             list: Map<String, bool>.from(value['list'] as Map),
             rating: Map<String, int>.from(
-              value['rating'].map((k, v) => MapEntry(k, int.parse(v))),
+              value['rating'].map((k, v) => MapEntry(k, v)),
             ),
           ),
         );

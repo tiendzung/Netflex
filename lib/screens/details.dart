@@ -494,11 +494,12 @@ class _ButtonBarState extends State<_ButtonBar> {
 
     // Cập nhật đánh giá cho bộ phim trong thông tin người dùng
     final Map<String, int> updatedRating = {...userRating, movieId: rating};
-
+    final Map<String, int> updatedFilmRating = {...widget.item.rating, userId: rating};
     // Cập nhật thông tin người dùng trong cơ sở dữ liệu Firebase
     try {
       // await context.read<Database>().updateUserRating(userId, updatedRating);
       await databaseReference.child('list-users/$userId/rating').set(updatedRating);
+      await databaseReference.child('contents/$movieId/rating').set(updatedFilmRating);
       context.read<Database>().updateUserRating(updatedRating);
       // ScaffoldMessenger.of(context).showSnackBar(
       //   SnackBar(content: Text('Rating for ${widget.item.name} updated successfully')),

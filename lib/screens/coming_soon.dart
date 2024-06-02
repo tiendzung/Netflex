@@ -27,7 +27,7 @@ class ComingSoon extends StatelessWidget {
     final location = tz.getLocation('Asia/Ho_Chi_Minh');
 
     // Tạo ra ngày cụ thể
-    final DateTime scheduledDate = DateTime(2024, 6, 12, 18, 48, 0); // 12h00
+    final DateTime scheduledDate = DateTime(2024, 6, 13, 21, 48, 0); // 12h00
 
     // Chuyển đổi thời gian sang múi giờ cụ thể
     final scheduledTime = tz.TZDateTime(
