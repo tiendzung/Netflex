@@ -19,6 +19,7 @@ class _DownloadMovieCardState extends State<DownloadMovieCard> {
   bool isDownloading = false;
   double downloadProgress = 0.0;
   bool fileExists = false;
+  bool done = false;
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
@@ -106,7 +107,9 @@ class _DownloadMovieCardState extends State<DownloadMovieCard> {
 
     setState(() {
       fileExists = File(filePath).existsSync();
+      done = true;
     });
+    // print(fileExists);
   }
 
   @override
