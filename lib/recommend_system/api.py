@@ -44,5 +44,4 @@ def get_recommendation(user_id: str):
 # This block ensures the script only runs when executed directly, not when imported
 if __name__ == '__main__':
     import uvicorn
-    # uvicorn.run(app, host="127.0.0.1", port=8000)
-    uvicorn.run(app, host="192.168.1.3", port=8000) ##http://192.168.1.3:8000
+    uvicorn.run(app, host="127.0.0.1", port=8000)
